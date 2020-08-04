@@ -1,0 +1,958 @@
+PROVINCE_STATE,COUNTRY_REGION,LOCALIZACION,lat,long
+Anhui,Mainland China,Anhui-Mainland China,31.783382,117.189163
+Beijing,Mainland China,Beijing-Mainland China,39.937967,116.417592
+Chongqing,Mainland China,Chongqing-Mainland China,29.565015,106.548238
+Fujian,Mainland China,Fujian-Mainland China,26.216565,117.974465
+Gansu,Mainland China,Gansu-Mainland China,35.151482,104.145072
+Guangdong,Mainland China,Guangdong-Mainland China,23.76822,112.80027
+Guangxi,Mainland China,Guangxi-Mainland China,23.619883,108.846147
+Guizhou,Mainland China,Guizhou-Mainland China,26.34054,105.99283
+Hainan,Mainland China,Hainan-Mainland China,19.99916,110.341187
+Hebei,Mainland China,Hebei-Mainland China,39.05229,114.74671
+Heilongjiang,Mainland China,Heilongjiang-Mainland China,47.014329,128.42752
+Henan,Mainland China,Henan-Mainland China,33.903296,113.660488
+Hong Kong,Hong Kong,Hong Kong-Hong Kong,22.2793278,114.1628131
+Hubei,Mainland China,Hubei-Mainland China,30.996329,112.534671
+Hunan,Mainland China,Hunan-Mainland China,27.958307,111.659259
+Inner Mongolia,Mainland China,Inner Mongolia-Mainland China,,
+Jiangsu,Mainland China,Jiangsu-Mainland China,33.668773,119.47881
+Jiangxi,Mainland China,Jiangxi-Mainland China,28.13841,115.06969
+Jilin,Mainland China,Jilin-Mainland China,43.820559,126.535855
+Liaoning,Mainland China,Liaoning-Mainland China,7.589871,-72.597547
+Macau,Macau,Macau-Macau,-5.2317522,-36.46673799241
+Ningxia,Mainland China,Ningxia-Mainland China,37.136541,105.912433
+Qinghai,Mainland China,Qinghai-Mainland China,25.80833,106.075
+Shaanxi,Mainland China,Shaanxi-Mainland China,34.040526,108.630496
+Shandong,Mainland China,Shandong-Mainland China,36.334087,117.756464
+Shanghai,Mainland China,Shanghai-Mainland China,7.589871,-72.597547
+Shanxi,Mainland China,Shanxi-Mainland China,37.586939,112.248176
+Sichuan,Mainland China,Sichuan-Mainland China,30.738864,102.695767
+Taiwan,Taiwan,Taiwan-Taiwan,23.9739374,120.9820179
+Tianjin,Mainland China,Tianjin-Mainland China,39.107355,117.185182
+Tibet,Mainland China,Tibet-Mainland China,32.088933,86.448392
+Washington,US,Washington-US,38.8949855,-77.0365708
+Xinjiang,Mainland China,Xinjiang-Mainland China,41.600618,85.94488
+Yunnan,Mainland China,Yunnan-Mainland China,24.282346,101.057809
+Zhejiang,Mainland China,Zhejiang-Mainland China,29.059828,119.902745
+,Japan,-Japan,36.5748441,139.2394179
+,Thailand,-Thailand,14.8971921,100.83273
+,South Korea,-South Korea,36.638392,127.6961188
+,Singapore,-Singapore,1.340863,103.830391822121
+,Philippines,-Philippines,12.7503486,122.7312101
+,Malaysia,-Malaysia,4.5693754,102.2656823
+,Vietnam,-Vietnam,13.2904027,108.4265113
+,Australia,-Australia,-24.7761086,134.755
+,Mexico,-Mexico,19.4326296,-99.1331785
+,Brazil,-Brazil,-10.3333333,-53.2
+,Colombia,-Colombia,2.8894434,-73.783892
+Chicago,US,Chicago-US,41.8755616,-87.6244212
+,France,-France,46.603354,1.8883335
+Illinois,US,Illinois-US,40.0796606,-89.4337288
+,Nepal,-Nepal,28.1083929,84.0917139
+California,US,California-US,36.7014631,-118.7559974
+Arizona,US,Arizona-US,34.395342,-111.7632755
+Ontario,Canada,Ontario-Canada,50.000678,-86.000977
+,Cambodia,-Cambodia,13.5066394,104.869423
+,Sri Lanka,-Sri Lanka,7.5554942,80.7137847
+,Ivory Coast,-Ivory Coast,7.9897371,-5.5679458
+New South Wales,Australia,New South Wales-Australia,-31.8759835,147.2869493
+Victoria,Australia,Victoria-Australia,-36.5986096,144.6780052
+British Columbia,Canada,British Columbia-Canada,55.001251,-125.002441
+Bavaria,Germany,Bavaria-Germany,48.9467562,11.4038717
+,Finland,-Finland,63.2467777,25.9209164
+,United Arab Emirates,-United Arab Emirates,24.0002488,53.9994829
+Queensland,Australia,Queensland-Australia,-22.1646782,144.5844903
+,India,-India,22.3511148,78.6677428
+,Italy,-Italy,42.6384261,12.674297
+,UK,-UK,54.7023545,-3.2765753
+,Russia,-Russia,64.6863136,97.7453061
+,Sweden,-Sweden,59.6749712,14.5208584
+,Germany,-Germany,51.0834196,10.4234469
+"Chicago, IL",US,"Chicago, IL-US",41.8755616,-87.6244212
+South Australia,Australia,South Australia-Australia,-30.5343665,135.6301212
+,Spain,-Spain,39.3262345,-4.8380649
+"Boston, MA",US,"Boston, MA-US",42.3602534,-71.0582912
+"Los Angeles, CA",US,"Los Angeles, CA-US",34.0536909,-118.2427666
+"Orange, CA",US,"Orange, CA-US",33.7500378,-117.8704931
+"Santa Clara, CA",US,"Santa Clara, CA-US",37.2333253,-121.6846349
+"Seattle, WA",US,"Seattle, WA-US",47.6038321,-122.3300624
+"Tempe, AZ",US,"Tempe, AZ-US",33.4255056,-111.9400125
+"San Benito, CA",US,"San Benito, CA-US",36.6248089,-121.1177379
+"Toronto, ON",Canada,"Toronto, ON-Canada",43.6534817,-79.3839347
+,Belgium,-Belgium,50.6402809,4.6667145
+"London, ON",Canada,"London, ON-Canada",42.9836747,-81.2496068
+"Madison, WI",US,"Madison, WI-US",43.074761,-89.3837613
+Cruise Ship,Others,Cruise Ship-Others,35.908327,14.505718
+Diamond Princess cruise ship,Others,Diamond Princess cruise ship-Others,,
+"San Diego County, CA",US,"San Diego County, CA-US",32.9637838,-116.7706277
+"San Antonio, TX",US,"San Antonio, TX-US",29.4246002,-98.4951405
+,Egypt,-Egypt,26.2540493,29.2675469
+,Iran,-Iran,32.6475314,54.5643516
+"Ashland, NE",US,"Ashland, NE-US",41.0391711,-96.3683917
+"Travis, CA",US,"Travis, CA-US",40.5931598,-74.1879218
+From Diamond Princess,Australia,From Diamond Princess-Australia,,
+"Lackland, TX",US,"Lackland, TX-US",29.3862862,-98.6009000913122
+From Diamond Princess,Israel,From Diamond Princess-Israel,,
+,Lebanon,-Lebanon,33.8750629,35.843409
+"Humboldt County, CA",US,"Humboldt County, CA-US",40.5997415,-123.8997734
+"Sacramento County, CA",US,"Sacramento County, CA-US",38.4732259,-121.2980707
+"Omaha, NE (From Diamond Princess)",US,"Omaha, NE (From Diamond Princess)-US",41.264965,-95.990452
+"Travis, CA (From Diamond Princess)",US,"Travis, CA (From Diamond Princess)-US",33.410679,-111.624974
+"Lackland, TX (From Diamond Princess)",US,"Lackland, TX (From Diamond Princess)-US",31.898836,-94.689243
+,Iraq,-Iraq,33.0955793,44.1749775
+Unassigned Location (From Diamond Princess),US,Unassigned Location (From Diamond Princess)-US,,
+,Oman,-Oman,21.0000287,57.0036901
+,Afghanistan,-Afghanistan,33.7680065,66.2385139
+,Bahrain,-Bahrain,26.1551249,50.5344606
+,Kuwait,-Kuwait,29.2733964,47.4979476
+,Austria,-Austria,47.2000338,13.199959
+,Algeria,-Algeria,28.0000272,2.9999825
+,Croatia,-Croatia,45.5643442,17.0118954
+,Switzerland,-Switzerland,46.7985624,8.2319736
+,Israel,-Israel,31.5313113,34.8667654
+,Pakistan,-Pakistan,30.3308401,71.247499
+,Georgia,-Georgia,41.6809707,44.0287382
+,Greece,-Greece,38.9953683,21.9877132
+,North Macedonia,-North Macedonia,41.6171214,21.7168387
+,Norway,-Norway,64.5731537,11.5280364395482
+,Romania,-Romania,45.9852129,24.6859225
+,Denmark,-Denmark,55.670249,10.3333283
+,Estonia,-Estonia,58.7523778,25.3319078
+,Netherlands,-Netherlands,52.5001698,5.7480821
+,San Marino,-San Marino,43.9458623,12.458306
+, Azerbaijan,- Azerbaijan,40.3936294,47.7872508
+,Belarus,-Belarus,53.4250605,27.6971358
+" Montreal, QC",Canada," Montreal, QC-Canada",45.4972159,-73.6103642
+,Iceland,-Iceland,64.9841821,-18.1059013
+,Lithuania,-Lithuania,55.3500003,23.7499997
+,New Zealand,-New Zealand,-41.5000831,172.8344077
+,Nigeria,-Nigeria,9.6000359,7.9999721
+,North Ireland,-North Ireland,52.4498412,-9.4777916
+Western Australia,Australia,Western Australia-Australia,-25.2303005,121.0187246
+,Ireland,-Ireland,52.865196,-7.9794599
+,Luxembourg,-Luxembourg,49.8158683,6.1296751
+,Monaco,-Monaco,43.73844905,7.42422409253295
+,Qatar,-Qatar,25.3336984,51.2295295
+"Portland, OR",US,"Portland, OR-US",45.5202471,-122.6741949
+"Snohomish County, WA",US,"Snohomish County, WA-US",48.0074736,-121.7304882
+,Ecuador,-Ecuador,-1.3397668,-79.3666965
+,Azerbaijan,-Azerbaijan,40.3936294,47.7872508
+,Czech Republic,-Czech Republic,49.8167003,15.4749544
+,Armenia,-Armenia,40.7696272,44.6736646
+,Dominican Republic,-Dominican Republic,19.0974031,-70.3028026
+"Providence, RI",US,"Providence, RI-US",41.8239891,-71.4128343
+"King County, WA",US,"King County, WA-US",47.4873376,-121.8622122
+"Cook County, IL",US,"Cook County, IL-US",41.8197385,-87.756525
+,Indonesia,-Indonesia,-2.4833826,117.8902853
+,Portugal,-Portugal,40.0332629,-7.8896263
+,Andorra,-Andorra,42.5407167,1.5732033
+Tasmania,Australia,Tasmania-Australia,-42.14220555,146.672351787847
+,Latvia,-Latvia,56.8406494,24.7537645
+,Morocco,-Morocco,31.1728205,-7.3362482
+,Saudi Arabia,-Saudi Arabia,25.6242618,42.3528328
+,Senegal,-Senegal,14.4750607,-14.4529612
+"Grafton County, NH",US,"Grafton County, NH-US",43.9702453,-71.8742626
+"Hillsborough, FL",US,"Hillsborough, FL-US",27.9184543,-82.3488057
+"New York City, NY",US,"New York City, NY-US",40.7127281,-74.0060152
+"Placer County, CA",US,"Placer County, CA-US",39.1012064,-120.7650606
+"San Mateo, CA",US,"San Mateo, CA-US",37.496904,-122.3330573
+"Sarasota, FL",US,"Sarasota, FL-US",27.3364347,-82.5306527
+"Sonoma County, CA",US,"Sonoma County, CA-US",38.5110803,-122.8473388
+"Umatilla, OR",US,"Umatilla, OR-US",45.9173549,-119.3425179
+"Fulton County, GA",US,"Fulton County, GA-US",34.0580391,-84.2961283
+"Washington County, OR",US,"Washington County, OR-US",39.9017011,-103.1521676
+,Argentina,-Argentina,-34.9964963,-64.9672817
+,Chile,-Chile,-31.7613365,-71.3187697
+,Jordan,-Jordan,31.1667049,36.941628
+" Norfolk County, MA",US," Norfolk County, MA-US",42.1538607,-71.1828015
+"Berkeley, CA",US,"Berkeley, CA-US",37.8708393,-122.2728639
+"Maricopa County, AZ",US,"Maricopa County, AZ-US",33.34883,-112.49123
+"Wake County, NC",US,"Wake County, NC-US",35.7979355,-78.6118311
+"Westchester County, NY",US,"Westchester County, NY-US",41.1763139,-73.7907554
+,Ukraine,-Ukraine,49.4871968,31.2718321
+,Saint Barthelemy,-Saint Barthelemy,17.9036287,-62.8115688430069
+"Orange County, CA",US,"Orange County, CA-US",33.7500378,-117.8704931
+,Hungary,-Hungary,47.1817585,19.5060937
+Northern Territory,Australia,Northern Territory-Australia,-19.8516101,133.2303375
+,Faroe Islands,-Faroe Islands,62.19850045,-6.81741243341217
+,Gibraltar,-Gibraltar,36.140807,-5.3541295
+,Liechtenstein,-Liechtenstein,47.1416307,9.5531527
+,Poland,-Poland,52.215933,19.134422
+,Tunisia,-Tunisia,33.8439408,9.400138
+"Contra Costa County, CA",US,"Contra Costa County, CA-US",37.9034806,-121.9175345
+,Palestine,-Palestine,31.94696655,35.273865472915
+,Bosnia and Herzegovina,-Bosnia and Herzegovina,44.3053476,17.5961467
+,Slovenia,-Slovenia,45.8133113,14.4808369
+"Bergen County, NJ",US,"Bergen County, NJ-US",40.9678345,-74.0563254
+"Harris County, TX",US,"Harris County, TX-US",29.8119769,-95.3741247
+"San Francisco County, CA",US,"San Francisco County, CA-US",37.7790262,-122.4199061
+,South Africa,-South Africa,-28.8166236,24.991639
+"Clark County, NV",US,"Clark County, NV-US",36.3467726,-115.0907378
+"Fort Bend County, TX",US,"Fort Bend County, TX-US",29.511218,-95.7807348
+"Grant County, WA",US,"Grant County, WA-US",47.119015,-119.4904332
+"Queens County, NY",US,"Queens County, NY-US",40.688423,-73.79325
+"Santa Rosa County, FL",US,"Santa Rosa County, FL-US",30.6964502,-87.0097524
+"Williamson County, TN",US,"Williamson County, TN-US",35.8772991,-86.8978708
+"New York County, NY",US,"New York County, NY-US",40.7896239,-73.9598939
+"Unassigned Location, WA",US,"Unassigned Location, WA-US",47.669834,-122.397152
+"Montgomery County, MD",US,"Montgomery County, MD-US",39.1406267,-77.2075612
+"Suffolk County, MA",US,"Suffolk County, MA-US",42.3544455,-70.9788771
+"Denver County, CO",US,"Denver County, CO-US",39.7348381,-104.9653271
+"Summit County, CO",US,"Summit County, CO-US",39.6070951,-106.0636654
+,Bhutan,-Bhutan,27.549511,90.5119273
+,Cameroon,-Cameroon,4.6125522,13.1535811
+"Calgary, Alberta",Canada,"Calgary, Alberta-Canada",51.0534234,-114.0625892
+,Costa Rica,-Costa Rica,10.2735633,-84.0739102
+,Peru,-Peru,-6.8699697,-75.0458515
+,Serbia,-Serbia,44.02432285,21.076574332099
+,Slovakia,-Slovakia,48.7411522,19.4528646
+,Togo,-Togo,8.7800265,1.0199765
+"Chatham County, NC",US,"Chatham County, NC-US",35.7151316,-79.2533035
+"Delaware County, PA",US,"Delaware County, PA-US",39.9194117,-75.4001639
+"Douglas County, NE",US,"Douglas County, NE-US",41.2954112,-96.1415672
+"Fayette County, KY",US,"Fayette County, KY-US",38.0280648,-84.4722444
+"Floyd County, GA",US,"Floyd County, GA-US",34.2421984,-85.2229248
+"Marion County, IN",US,"Marion County, IN-US",32.7602612,-94.5562357
+"Middlesex County, MA",US,"Middlesex County, MA-US",42.485452,-71.3968261
+"Nassau County, NY",US,"Nassau County, NY-US",40.7412643,-73.5877699
+"Norwell County, MA",US,"Norwell County, MA-US",42.1617681,-70.7939307
+"Ramsey County, MN",US,"Ramsey County, MN-US",45.0165728,-93.0949501
+"Washoe County, NV",US,"Washoe County, NV-US",40.5849048,-119.6131606
+"Wayne County, PA",US,"Wayne County, PA-US",41.6264414,-75.3045103
+"Yolo County, CA",US,"Yolo County, CA-US",38.7184542,-121.9059001
+,Vatican City,-Vatican City,41.9034912,12.4528349
+"Santa Clara County, CA",US,"Santa Clara County, CA-US",37.2333253,-121.6846349
+Grand Princess Cruise Ship,US,Grand Princess Cruise Ship-US,,
+,French Guiana,-French Guiana,4.0039882,-52.999998
+,Malta,-Malta,35.8885993,14.4476911
+"Douglas County, CO",US,"Douglas County, CO-US",39.3420437,-104.9468945
+"Providence County, RI",US,"Providence County, RI-US",41.87220395,-71.5664587392413
+,Martinique,-Martinique,14.6367927,-61.0158268506373
+"Alameda County, CA",US,"Alameda County, CA-US",37.6090291,-121.899142
+"Broward County, FL",US,"Broward County, FL-US",26.1598074,-80.4623642
+"Fairfield County, CT",US,"Fairfield County, CT-US",41.2943069,-73.37486
+"Lee County, FL",US,"Lee County, FL-US",26.5999265,-81.8823135
+"Pinal County, AZ",US,"Pinal County, AZ-US",32.8085851,-111.4426212
+"Rockland County, NY",US,"Rockland County, NY-US",41.1519319,-74.0357266
+"Saratoga County, NY",US,"Saratoga County, NY-US",43.0833231,-73.8712155
+"Edmonton, Alberta",Canada,"Edmonton, Alberta-Canada",53.535411,-113.507996
+"Charleston County, SC",US,"Charleston County, SC-US",32.8152646,-79.7996814
+"Clark County, WA",US,"Clark County, WA-US",45.7669047,-122.4940866
+"Cobb County, GA",US,"Cobb County, GA-US",33.9373948,-84.5732006
+"Davis County, UT",US,"Davis County, UT-US",41.0263758,-112.1197426
+"El Paso County, CO",US,"El Paso County, CO-US",38.8287435,-104.5253456
+"Honolulu County, HI",US,"Honolulu County, HI-US",21.468151,-157.960511
+"Jackson County, OR ",US,"Jackson County, OR -US",40.6531945,-106.3447246
+"Jefferson County, WA",US,"Jefferson County, WA-US",41.0131342,-91.9718642
+"Kershaw County, SC",US,"Kershaw County, SC-US",34.3334398,-80.5669895
+"Klamath County, OR",US,"Klamath County, OR-US",42.6052565,-121.739544
+"Madera County, CA",US,"Madera County, CA-US",37.1716264,-119.7737991
+"Pierce County, WA",US,"Pierce County, WA-US",47.0022547,-122.2117983
+"Plymouth County, MA",US,"Plymouth County, MA-US",41.9426657,-70.7618592
+"Santa Cruz County, CA",US,"Santa Cruz County, CA-US",37.050096,-121.9905908
+"Tulsa County, OK",US,"Tulsa County, OK-US",36.1012145,-95.9250506
+"Montgomery County, TX",US,"Montgomery County, TX-US",30.301949,-95.5065944
+,Republic of Ireland,-Republic of Ireland,52.865196,-7.9794599
+"Norfolk County, MA",US,"Norfolk County, MA-US",42.1538607,-71.1828015
+,Bulgaria,-Bulgaria,42.6073975,25.4856617
+,Maldives,-Maldives,4.7064352,73.3287853
+"Montgomery County, PA",US,"Montgomery County, PA-US",40.2154361,-75.3702305
+,Bangladesh,-Bangladesh,24.4768783,90.2932426
+"Fairfax County, VA",US,"Fairfax County, VA-US",38.8156356,-77.2836849
+"Rockingham County, NH",US,"Rockingham County, NH-US",42.9966675,-71.1003143
+"Washington, D.C.",US,"Washington, D.C.-US",38.8949855,-77.0365708
+,Moldova,-Moldova,47.2879608,28.5670941
+,Paraguay,-Paraguay,-23.3165935,-58.1693445
+"Berkshire County, MA",US,"Berkshire County, MA-US",42.3999954,-73.2322639
+"Davidson County, TN",US,"Davidson County, TN-US",36.189724,-86.7857862
+"Douglas County, OR",US,"Douglas County, OR-US",39.3420437,-104.9468945
+"Fresno County, CA",US,"Fresno County, CA-US",36.6713502,-119.8155355
+"Harford County, MD",US,"Harford County, MD-US",39.548545,-76.3048991
+"Hendricks County, IN",US,"Hendricks County, IN-US",39.7565309,-86.5173641
+"Hudson County, NJ",US,"Hudson County, NJ-US",40.7381635,-74.0550731
+"Johnson County, KS",US,"Johnson County, KS-US",38.8837933,-94.8389141
+"Kittitas County, WA",US,"Kittitas County, WA-US",47.1057471,-120.5849305
+"Manatee County, FL",US,"Manatee County, FL-US",27.5213933,-82.3801566
+"Marion County, OR",US,"Marion County, OR-US",44.8964425,-122.7203248
+"Okaloosa County, FL",US,"Okaloosa County, FL-US",30.6765961,-86.6037748
+"Polk County, GA",US,"Polk County, GA-US",33.9981581,-85.1567475
+"Riverside County, CA",US,"Riverside County, CA-US",33.7219991,-116.0372472
+"Shelby County, TN",US,"Shelby County, TN-US",35.1782557,-89.8739775
+"Spokane County, WA",US,"Spokane County, WA-US",47.5354964,-117.4074674
+"St. Louis County, MO",US,"St. Louis County, MO-US",38.6398744,-90.5188127750124
+"Suffolk County, NY",US,"Suffolk County, NY-US",40.8832318,-72.8578027
+"Ulster County, NY",US,"Ulster County, NY-US",41.8689317,-74.2618518
+"Unassigned Location, VT",US,"Unassigned Location, VT-US",44.383614,-73.228337
+"Unknown Location, MA",US,"Unknown Location, MA-US",-0.9999454,36.7416612
+"Volusia County, FL",US,"Volusia County, FL-US",29.0533409,-81.1310761
+Alberta,Canada,Alberta-Canada,55.001251,-115.002136
+Quebec,Canada,Quebec-Canada,52.4760892,-71.8258668
+"Johnson County, IA",US,"Johnson County, IA-US",41.6861834,-91.6061124
+,Albania,-Albania,41.000028,19.9999619
+,Cyprus,-Cyprus,34.9823018,33.1451285
+,St. Martin,-St. Martin,48.5683066,6.7539988
+"Harrison County, KY",US,"Harrison County, KY-US",38.4355948,-84.3216412
+,Brunei,-Brunei,4.4137155,114.5653908
+"Bennington County, VT",US,"Bennington County, VT-US",43.0125713,-73.1473048
+"Carver County, MN",US,"Carver County, MN-US",44.807118,-93.7871792
+"Charlotte County, FL",US,"Charlotte County, FL-US",26.9013269,-81.9156799
+"Cherokee County, GA",US,"Cherokee County, GA-US",34.2391265,-84.4720272
+"Collin County, TX",US,"Collin County, TX-US",33.1609629,-96.6060984
+"Jefferson County, KY",US,"Jefferson County, KY-US",38.1787175,-85.664528
+"Jefferson Parish, LA",US,"Jefferson Parish, LA-US",29.8502657,-90.1293894
+"Shasta County, CA",US,"Shasta County, CA-US",40.7965121,-121.9979194
+"Spartanburg County, SC",US,"Spartanburg County, SC-US",34.937029,-81.9955954
+New York,US,New York-US,40.7127281,-74.0060152
+Massachusetts,US,Massachusetts-US,42.3788774,-72.032366
+Diamond Princess cruise ship,US,Diamond Princess cruise ship-US,,
+,occupied Palestinian territory,-occupied Palestinian territory,32.132392,35.262925
+Grand Princess,US,Grand Princess-US,38.3875819,-82.7457188
+Georgia,US,Georgia-US,32.3293809,-83.1137366
+Colorado,US,Colorado-US,38.7251776,-105.6077167
+Florida,US,Florida-US,27.7567667,-81.4639835
+New Jersey,US,New Jersey-US,40.0757384,-74.4041622
+Oregon,US,Oregon-US,43.9792797,-120.737257
+Texas,US,Texas-US,31.8160381,-99.5120986
+Pennsylvania,US,Pennsylvania-US,40.9699889,-77.7278831
+Iowa,US,Iowa-US,41.9216734,-93.3122705
+Maryland,US,Maryland-US,39.5162234,-76.9382069
+North Carolina,US,North Carolina-US,35.6729639,-79.0392919
+South Carolina,US,South Carolina-US,33.6874388,-80.4363743
+Tennessee,US,Tennessee-US,35.7730076,-86.2820081
+Virginia,US,Virginia-US,37.1232245,-78.4927721
+Indiana,US,Indiana-US,40.3270127,-86.1746933
+Kentucky,US,Kentucky-US,37.5726028,-85.1551411
+District of Columbia,US,District of Columbia-US,38.89379365,-76.9879975726131
+Nevada,US,Nevada-US,39.5158825,-116.8537227
+New Hampshire,US,New Hampshire-US,43.4849133,-71.6553992
+Minnesota,US,Minnesota-US,45.9896587,-94.6113288
+Nebraska,US,Nebraska-US,41.7370229,-99.5873816
+Ohio,US,Ohio-US,40.2253569,-82.6881395
+Rhode Island,US,Rhode Island-US,41.7962409,-71.5992372
+Wisconsin,US,Wisconsin-US,44.4308975,-89.6884637
+,"('St. Martin',)","-('St. Martin',)",48.5683066,6.7539988
+Connecticut,US,Connecticut-US,41.6500201,-72.7342163
+Hawaii,US,Hawaii-US,19.58726775,-155.426889653127
+Oklahoma,US,Oklahoma-US,34.9550817,-97.2684063
+Utah,US,Utah-US,39.4225192,-111.7143584
+,Burkina Faso,-Burkina Faso,12.0753083,-1.6880314
+,Channel Islands,-Channel Islands,33.96579515,-120.091897111053
+,Holy See,-Holy See,38.9247244,-77.0657273269015
+,Mongolia,-Mongolia,46.8250388,103.8499736
+,Panama,-Panama,8.559559,-81.1308434
+Kansas,US,Kansas-US,38.27312,-98.5821872
+Louisiana,US,Louisiana-US,30.8703881,-92.007126
+Missouri,US,Missouri-US,38.7604815,-92.5617875
+Vermont,US,Vermont-US,44.5990718,-72.5002608
+Diamond Princess cruise ship,Australia,Diamond Princess cruise ship-Australia,,
+Alaska,US,Alaska-US,64.4459613,-149.680909
+Arkansas,US,Arkansas-US,35.2048883,-92.4479108
+Delaware,US,Delaware-US,38.6920451,-75.4013315
+Idaho,US,Idaho-US,43.6447642,-114.0154071
+Maine,US,Maine-US,45.709097,-68.8590201
+Michigan,US,Michigan-US,43.6211955,-84.6824346
+Mississippi,US,Mississippi-US,32.9715645,-89.7348497
+Montana,US,Montana-US,47.3752671,-109.6387579
+New Mexico,US,New Mexico-US,34.5708167,-105.993007
+North Dakota,US,North Dakota-US,47.6201461,-100.540737
+South Dakota,US,South Dakota-US,44.6471761,-100.348761
+West Virginia,US,West Virginia-US,38.4758406,-80.8408415
+Wyoming,US,Wyoming-US,43.1700264,-107.5685348
+France,France,France-France,46.603354,1.8883335
+UK,UK,UK-UK,54.7023545,-3.2765753
+Denmark,Denmark,Denmark-Denmark,55.670249,10.3333283
+,Taiwan,-Taiwan,23.9739374,120.9820179
+,Bolivia,-Bolivia,-17.0568696,-64.9912286
+Faroe Islands,Denmark,Faroe Islands-Denmark,54.95007595,11.9901872022883
+St Martin,France,St Martin-France,18.085493,-63.0512920979606
+,Honduras,-Honduras,15.2572432,-86.0755145
+Channel Islands,UK,Channel Islands-UK,34.184132,-119.229726
+New Brunswick,Canada,New Brunswick-Canada,46.500283,-66.750183
+,Congo (Kinshasa),-Congo (Kinshasa),-2.9814344,23.8222636
+Saint Barthelemy,France,Saint Barthelemy-France,17.9036287,-62.8115688430069
+,Jamaica,-Jamaica,18.1152958,-77.1598454610168
+,Reunion,-Reunion,-21.13073795,55.5364801129923
+,Turkey,-Turkey,38.9597594,34.9249653
+Gibraltar,UK,Gibraltar-UK,51.791921,-0.9022301
+,Cuba,-Cuba,23.0131338,-80.8328748
+,Guyana,-Guyana,4.8417097,-58.6416891
+Australian Capital Territory,Australia,Australian Capital Territory-Australia,-35.4883502,149.0026942
+United Kingdom,UK,United Kingdom-UK,54.7023545,-3.2765753
+,Kazakhstan,-Kazakhstan,47.2286086,65.2093197
+French Polynesia,France,French Polynesia-France,-16.03442485,-146.049093105952
+,Cayman Islands,-Cayman Islands,19.70318225,-79.9174627243246
+,Guadeloupe,-Guadeloupe,16.2490067,-61.5650444
+Manitoba,Canada,Manitoba-Canada,55.001251,-97.001038
+Saskatchewan,Canada,Saskatchewan-Canada,55.5321257,-106.1412243
+,Ethiopia,-Ethiopia,10.2116702,38.6521203
+,Sudan,-Sudan,14.5844444,29.4917691
+,Guinea,-Guinea,10.7226226,-10.7083587
+,Antigua and Barbuda,-Antigua and Barbuda,17.2234721,-61.9554608
+,Aruba,-Aruba,12.4902998,-69.9609842
+Grand Princess,Canada,Grand Princess-Canada,49.28232185,-123.136868497145
+,Kenya,-Kenya,1.4419683,38.4313975
+Alabama,US,Alabama-US,33.2588817,-86.8295337
+Fench Guiana,France,Fench Guiana-France,52.40821,7.310107
+,Uruguay,-Uruguay,-32.8755548,-56.0201525
+,Ghana,-Ghana,8.0300284,-1.0800271
+Puerto Rico,US,Puerto Rico-US,18.2214149,-66.4132817951385
+,Jersey,-Jersey,49.21230655,-2.12559995964288
+,Namibia,-Namibia,-23.2335499,17.3231107
+,Seychelles,-Seychelles,-4.6574977,55.4540146
+,Trinidad and Tobago,-Trinidad and Tobago,10.8677845,-60.9821067
+,Venezuela,-Venezuela,8.0018709,-66.1109318
+,Curacao,-Curacao,12.1845,-68.9640875031406
+,Eswatini,-Eswatini,-26.5624806,31.3991317
+,Gabon,-Gabon,-0.8999695,11.6899699
+,Guatemala,-Guatemala,15.6356088,-89.8988087
+,Guernsey,-Guernsey,49.580437,-2.484854
+,Mauritania,-Mauritania,20.2540382,-9.2399263
+,Rwanda,-Rwanda,-1.9646631,30.0644358
+,Saint Lucia,-Saint Lucia,13.8250489,-60.975036
+,Saint Vincent and the Grenadines,-Saint Vincent and the Grenadines,12.90447,-61.2765569
+,Suriname,-Suriname,4.1413025,-56.0771187
+"Virgin Islands, U.S.",US,"Virgin Islands, U.S.-US",49.008797,2.198499
+French Guiana,France,French Guiana-France,4.0039882,-52.999998
+Guam,US,Guam-US,13.4501257,144.757551029721
+,Kosovo,-Kosovo,42.5869578,20.9021231
+Newfoundland and Labrador,Canada,Newfoundland and Labrador-Canada,53.8217327,-61.2295532
+Prince Edward Island,Canada,Prince Edward Island-Canada,46.50354535,-63.5955171399145
+,Central African Republic,-Central African Republic,7.0323598,19.9981227
+,Congo (Brazzaville),-Congo (Brazzaville),-0.7264327,15.6419155
+,Equatorial Guinea,-Equatorial Guinea,1.613172,10.5170357
+Mayotte,France,Mayotte-France,-12.823048,45.1520755
+,Uzbekistan,-Uzbekistan,41.32373,63.9528098
+Netherlands,Netherlands,Netherlands-Netherlands,52.5001698,5.7480821
+Nova Scotia,Canada,Nova Scotia-Canada,45.1960403,-63.1653789
+Guadeloupe,France,Guadeloupe-France,16.2490067,-61.5650444
+,Guam,-Guam,13.4501257,144.757551029721
+,Puerto Rico,-Puerto Rico,18.2214149,-66.4132817951385
+,Benin,-Benin,9.5293472,2.2584408
+,Greenland,-Greenland,77.6192349,-42.8125967
+,Liberia,-Liberia,5.7499721,-9.3658524
+,Mayotte,-Mayotte,-12.823048,45.1520755
+Curacao,Netherlands,Curacao-Netherlands,12.1845,-68.9640875031406
+,Republic of the Congo,-Republic of the Congo,-0.7264327,15.6419155
+,Somalia,-Somalia,8.3676771,49.083416
+,Tanzania,-Tanzania,-6.5247123,35.7878438
+,The Bahamas,-The Bahamas,24.7736546,-78.0000547
+Virgin Islands,US,Virgin Islands-US,18.4024395,-64.5661642
+Cayman Islands,UK,Cayman Islands-UK,19.319996,-81.230744
+Reunion,France,Reunion-France,-21.13073795,55.5364801129923
+,Barbados,-Barbados,13.1500331,-59.5250305
+,Montenegro,-Montenegro,42.9868853,19.5180992
+,The Gambia,-The Gambia,13.470062,-15.4900464
+,Kyrgyzstan,-Kyrgyzstan,41.5089324,74.724091
+,Mauritius,-Mauritius,-20.2759451,57.5703566
+Aruba,Netherlands,Aruba-Netherlands,12.4902998,-69.9609842
+United States Virgin Islands,US,United States Virgin Islands-US,17.789187,-64.7080574
+,Zambia,-Zambia,-14.5186239,27.5599164
+,Djibouti,-Djibouti,11.8145966,42.8453061
+,"Gambia, The","-Gambia, The",13.470062,-15.4900464
+US,US,US-US,49.0996212,1.9705457
+Montserrat,UK,Montserrat-UK,51.7283857,-2.2085499
+,"Bahamas, The","-Bahamas, The",24.7736546,-78.0000547
+Greenland,Denmark,Greenland-Denmark,71.8311379,-38.8568271537351
+New Caledonia,France,New Caledonia-France,-20.4542886,164.55660583078
+Bermuda,UK,Bermuda-UK,52.5056354,-1.4789788
+,Chad,-Chad,15.6134137,19.0156172
+,El Salvador,-El Salvador,13.8000382,-88.9140683
+,Fiji,-Fiji,-18.1239696,179.0122737
+,Nicaragua,-Nicaragua,12.6090157,-85.2936911
+,Madagascar,-Madagascar,-18.9249604,46.4416422
+,Haiti,-Haiti,19.1399952,-72.3570972
+,Angola,-Angola,-11.8775768,17.5691241
+,Cabo Verde,-Cabo Verde,16.0000552,-24.0083947
+Sint Maarten,Netherlands,Sint Maarten-Netherlands,18.0423736,-63.0549948
+,Niger,-Niger,17.7356214,9.3238432
+,Papua New Guinea,-Papua New Guinea,-5.6816069,144.2489081
+Isle of Man,UK,Isle of Man-UK,53.7795873,-2.483369
+,Zimbabwe,-Zimbabwe,-18.4554963,29.7468414
+Northwest Territories,Canada,Northwest Territories-Canada,65.0000004,-118
+,Cape Verde,-Cape Verde,16.0000552,-24.0083947
+,East Timor,-East Timor,-8.5151979,125.8375756
+,Eritrea,-Eritrea,15.9500319,37.9999668
+,Uganda,-Uganda,1.5333554,32.2166578
+,Bahamas,-Bahamas,24.7736546,-78.0000547
+,Dominica,-Dominica,19.0974031,-70.3028026
+,Gambia,-Gambia,13.470062,-15.4900464
+,Grenada,-Grenada,12.1360374,-61.6904045
+,Mozambique,-Mozambique,-19.302233,34.9144977
+,Syria,-Syria,34.6401861,39.0494106
+,Timor-Leste,-Timor-Leste,-8.5151979,125.8375756
+American Samoa,US,American Samoa-US,-14.289304,-170.692511
+Diamond Princess cruise ship,Canada,Diamond Princess cruise ship-Canada,,
+External territories,Australia,External territories-Australia,55.938703,-3.295416
+Jervis Bay Territory,Australia,Jervis Bay Territory-Australia,-35.1494368,150.7085321
+Martinique,France,Martinique-France,14.6367927,-61.0158268506373
+Northern Mariana Islands,US,Northern Mariana Islands-US,14.1490205,145.213452483189
+Wuhan Evacuee,US,Wuhan Evacuee-US,30.539706,114.328408
+,Belize,-Belize,16.8259793,-88.7600927
+,Laos,-Laos,20.0171109,103.378253
+,Libya,-Libya,26.8234472,18.1236723
+,Canada,-Canada,61.0666922,-107.9917071
+,US,-US,39.7837304,-100.4458825
+,Diamond Princess,-Diamond Princess,53.8953584,27.5554078
+,Guinea-Bissau,-Guinea-Bissau,12.100035,-14.9000214
+,Mali,-Mali,16.3700359,-2.2900239
+,Saint Kitts and Nevis,-Saint Kitts and Nevis,17.250512,-62.6725973
+,West Bank and Gaza,-West Bank and Gaza,31.5077213,34.4607415
+Yukon,Canada,Yukon-Canada,63.000147,-136.002502
+,Burma,-Burma,17.1750495,95.9999652
+,MS Zaandam,-MS Zaandam,52.4387696,4.8185293
+Anguilla,UK,Anguilla-UK,51.53827235,-2.55589328195266
+British Virgin Islands,UK,British Virgin Islands-UK,18.429616,-64.613328
+Turks and Caicos Islands,UK,Turks and Caicos Islands-UK,21.81663,-71.752704
+,Botswana,-Botswana,-23.1681782,24.5928742
+,Burundi,-Burundi,-3.3634357,29.8870575
+,Sierra Leone,-Sierra Leone,8.6400349,-11.8400269
+,Malawi,-Malawi,-13.2687204,33.9301963
+"Bonaire, Sint Eustatius and Saba",Netherlands,"Bonaire, Sint Eustatius and Saba-Netherlands",12.167,-68.2909614373424
+Falkland Islands (Islas Malvinas),UK,Falkland Islands (Islas Malvinas)-UK,-51.651514,-58.738304
+,South Sudan,-South Sudan,7.8699431,29.6667897
+,Western Sahara,-Western Sahara,24.1797324,-13.7667848
+Saint Pierre and Miquelon,France,Saint Pierre and Miquelon-France,46.95689275,-56.3934609098073
+,Sao Tome and Principe,-Sao Tome and Principe,0.8875498,6.9648718
+Falkland Islands (Malvinas),UK,Falkland Islands (Malvinas)-UK,-51.651514,-58.738304
+,Yemen,-Yemen,16.3471243,47.8915271
+,Comoros,-Comoros,-12.2045176,44.2832964
+,Tajikistan,-Tajikistan,38.6281733,70.8156541
+,Lesotho,-Lesotho,-29.6039267,28.3350193
+Abruzzo,Italy,Abruzzo-Italy,42.227681,13.854983
+Andalusia,Spain,Andalusia-Spain,14.059224,121.3181285
+Aragon,Spain,Aragon-Spain,41.3787291,-0.7639373
+Asturias,Spain,Asturias-Spain,43.2710878,-5.8541457445873
+Baden-Wurttemberg,Germany,Baden-Wurttemberg-Germany,48.6296972,9.1949534
+Baleares,Spain,Baleares-Spain,39.6134018,2.88043053264008
+Basilicata,Italy,Basilicata-Italy,40.500571,16.081953
+Bayern,Germany,Bayern-Germany,48.9467562,11.4038717
+Berlin,Germany,Berlin-Germany,52.5170365,13.3888599
+Brandenburg,Germany,Brandenburg-Germany,52.8455492,13.2461296
+Bremen,Germany,Bremen-Germany,53.0758196,8.8071646
+C. Valenciana,Spain,C. Valenciana-Spain,38.0372218,-4.0536473
+Calabria,Italy,Calabria-Italy,39.0565974,16.5249864
+Campania,Italy,Campania-Italy,40.860672,14.843984
+Canarias,Spain,Canarias-Spain,28.2935785,-16.6214471211441
+Cantabria,Spain,Cantabria-Spain,43.1595664,-4.0878382
+Castilla - La Mancha,Spain,Castilla - La Mancha-Spain,39.4177902,-2.6232332
+Castilla y Leon,Spain,Castilla y Leon-Spain,41.8037172,-4.7471726
+Catalonia,Spain,Catalonia-Spain,14.0589343,121.3168494
+Ceuta,Spain,Ceuta-Spain,35.888361,-5.304138
+Emilia-Romagna,Italy,Emilia-Romagna-Italy,44.525696,11.039437
+Extremadura,Spain,Extremadura-Spain,39.1748426,-6.1529891
+Friuli Venezia Giulia,Italy,Friuli Venezia Giulia-Italy,46.151042,13.055904
+Galicia,Spain,Galicia-Spain,14.0591786,121.3185721
+Hamburg,Germany,Hamburg-Germany,53.5437641,10.0099133
+Hessen,Germany,Hessen-Germany,50.6118537,9.1909725
+La Rioja,Spain,La Rioja-Spain,42.3285528,-2.4674917
+Lazio,Italy,Lazio-Italy,41.9808038,12.7662312
+Liguria,Italy,Liguria-Italy,44.4777617,8.7026296
+Lombardia,Italy,Lombardia-Italy,45.6209,9.768893
+Madrid,Spain,Madrid-Spain,40.4167047,-3.7035825
+Marche,Italy,Marche-Italy,43.3458388,13.1415872
+Mecklenburg-Vorpommern,Germany,Mecklenburg-Vorpommern-Germany,53.7735234,12.5755746
+Melilla,Spain,Melilla-Spain,35.2919028,-2.9407146
+Molise,Italy,Molise-Italy,41.684672,14.595614
+Murcia,Spain,Murcia-Spain,37.9923795,-1.1305431
+Navarra,Spain,Navarra-Spain,42.61254875,-1.83078768299155
+Niedersachsen,Germany,Niedersachsen-Germany,52.8398531,9.075962
+Nordrhein-Westfalen,Germany,Nordrhein-Westfalen-Germany,51.4781796,7.5542336
+P.A. Bolzano,Italy,P.A. Bolzano-Italy,10.8028953,106.6839428
+P.A. Trento,Italy,P.A. Trento-Italy,46.6074515,11.5834227
+Pais Vasco,Spain,Pais Vasco-Spain,42.9911816,-2.5543023
+Piemonte,Italy,Piemonte-Italy,45.060735,7.923549
+Puglia,Italy,Puglia-Italy,40.9842539,16.6210027
+Rheinland-Pfalz,Germany,Rheinland-Pfalz-Germany,49.9531599,7.310646
+Saarland,Germany,Saarland-Germany,49.4173988,6.9805789
+Sachsen,Germany,Sachsen-Germany,50.9295798,13.4585052
+Sachsen-Anhalt,Germany,Sachsen-Anhalt-Germany,51.908526,11.4939134
+Sardegna,Italy,Sardegna-Italy,40.06160405,9.09775380655307
+Schleswig-Holstein,Germany,Schleswig-Holstein-Germany,54.1853998,9.8220089
+Sicilia,Italy,Sicilia-Italy,37.587794,14.155048
+Thuringen,Germany,Thuringen-Germany,50.7333163,11.0747905
+Toscana,Italy,Toscana-Italy,43.4586541,11.1389204
+Umbria,Italy,Umbria-Italy,42.965916,12.490236
+Unknown,Germany,Unknown-Germany,53.0884321,8.8425735
+Valle d'Aosta,Italy,Valle d'Aosta-Italy,45.730099,7.387426
+Veneto,Italy,Veneto-Italy,45.6476663,11.8665254
+Unknown,Spain,Unknown-Spain,39.5727472,2.6274971
+Acre,Brazil,Acre-Brazil,-9.0478679,-70.5264976
+Aguascalientes,Mexico,Aguascalientes-Mexico,22.0000001,-102.5000001
+Alagoas,Brazil,Alagoas-Brazil,-9.6611661,-36.6502426
+Amapa,Brazil,Amapa-Brazil,1.3545442,-51.9161977
+Amazonas,Brazil,Amazonas-Brazil,-4.479925,-63.5185396
+Antofagasta,Chile,Antofagasta-Chile,-23.6463741,-70.3980033
+Araucania,Chile,Araucania-Chile,-38.6710116,-72.2564576
+Arica y Parinacota,Chile,Arica y Parinacota-Chile,-18.5918514,-69.7586083
+Atacama,Chile,Atacama-Chile,-27.5571783,-70.0156882
+Aysen,Chile,Aysen-Chile,-46.1434629,-74.3648869416981
+Bahia,Brazil,Bahia-Brazil,-12.285251,-41.9294776
+Baja California,Mexico,Baja California-Mexico,30.0338923,-115.1425107
+Baja California Sur,Mexico,Baja California Sur-Mexico,25.5818014,-111.5706164
+Biobio,Chile,Biobio-Chile,-37.3391407,-72.4106825
+Campeche,Mexico,Campeche-Mexico,19.32920555,-89.9439148263377
+Ceara,Brazil,Ceara-Brazil,-5.3264703,-39.7156073
+Chiapas,Mexico,Chiapas-Mexico,16.5000001,-92.5000001
+Chihuahua,Mexico,Chihuahua-Mexico,28.5000001,-106.0000001
+Ciudad de Mexico,Mexico,Ciudad de Mexico-Mexico,19.4326296,-99.1331785
+Coahuila,Mexico,Coahuila-Mexico,27.3333331,-102.0000001
+Colima,Mexico,Colima-Mexico,19.166667,-104
+Coquimbo,Chile,Coquimbo-Chile,-30.7546652,-70.9005536
+Distrito Federal,Brazil,Distrito Federal-Brazil,-15.7754462,-47.7970891
+Durango,Mexico,Durango-Mexico,24.833333,-104.833333
+Espirito Santo,Brazil,Espirito Santo-Brazil,-19.5687682,-40.1721991
+Goias,Brazil,Goias-Brazil,-15.9323662,-50.1392928
+Guanajuato,Mexico,Guanajuato-Mexico,20.9876996,-101
+Guerrero,Mexico,Guerrero-Mexico,17.666667,-100
+Hidalgo,Mexico,Hidalgo-Mexico,20.5,-99
+Jalisco,Mexico,Jalisco-Mexico,29.4853644,-98.5951857
+Los Lagos,Chile,Los Lagos-Chile,-42.300844,-73.105387
+Los Rios,Chile,Los Rios-Chile,-39.9742911,-72.667478
+Magallanes,Chile,Magallanes-Chile,-53.3527518,-71.5547782
+Maranhao,Brazil,Maranhao-Brazil,-5.2085503,-45.3930262
+Mato Grosso,Brazil,Mato Grosso-Brazil,-12.2115009,-55.5716547
+Mato Grosso do Sul,Brazil,Mato Grosso do Sul-Brazil,-19.5852564,-54.4794731
+Maule,Chile,Maule-Chile,-35.5972284,-71.48868
+Metropolitana,Chile,Metropolitana-Chile,-33.503659,-70.7624145
+Mexico,Mexico,Mexico-Mexico,19.4326296,-99.1331785
+Michoacan,Mexico,Michoacan-Mexico,19.207098,-101.878113
+Minas Gerais,Brazil,Minas Gerais-Brazil,-18.5264844,-44.1588654
+Morelos,Mexico,Morelos-Mexico,18.75,-99
+Nayarit,Mexico,Nayarit-Mexico,21.8438765,-104.871485352011
+Nuble,Chile,Nuble-Chile,-36.6331577,-71.9384821
+Nuevo Leon,Mexico,Nuevo Leon-Mexico,26.2384363,-99.8873
+OHiggins,Chile,OHiggins-Chile,-48.47302585,-72.8474931446675
+Oaxaca,Mexico,Oaxaca-Mexico,19.3497032,-99.161269
+Para,Brazil,Para-Brazil,-4.7493933,-52.8973006
+Paraiba,Brazil,Paraiba-Brazil,-7.1219366,-36.7246845
+Parana,Brazil,Parana-Brazil,-24.4842187,-51.8148872
+Pernambuco,Brazil,Pernambuco-Brazil,-8.4116316,-37.5919699
+Piaui,Brazil,Piaui-Brazil,-7.6992782,-42.5043787
+Puebla,Mexico,Puebla-Mexico,18.833333,-98
+Queretaro,Mexico,Queretaro-Mexico,20.8542575,-99.84756
+Quintana Roo,Mexico,Quintana Roo-Mexico,19.6666671,-88.5000001
+Rio Grande do Norte,Brazil,Rio Grande do Norte-Brazil,-5.6781175,-36.4781776
+Rio Grande do Sul,Brazil,Rio Grande do Sul-Brazil,-29.8425284,-53.7680577
+Rio de Janeiro,Brazil,Rio de Janeiro-Brazil,-22.9110137,-43.2093727
+Rondonia,Brazil,Rondonia-Brazil,-10.943145,-62.8277863
+Roraima,Brazil,Roraima-Brazil,2.135138,-61.3631922
+San Luis Potosi,Mexico,San Luis Potosi-Mexico,22.5000001,-100.5000001
+Santa Catarina,Brazil,Santa Catarina-Brazil,-27.0628367,-51.114965
+Sao Paulo,Brazil,Sao Paulo-Brazil,-23.5506507,-46.6333824
+Sergipe,Brazil,Sergipe-Brazil,-10.6743911,-37.3773519
+Sinaloa,Mexico,Sinaloa-Mexico,25.0000001,-107.5000001
+Sonora,Mexico,Sonora-Mexico,29.3333331,-110.6666671
+Tabasco,Mexico,Tabasco-Mexico,17.95078635,-92.483122132414
+Tamaulipas,Mexico,Tamaulipas-Mexico,23.9891553,-98.7026825
+Tarapaca,Chile,Tarapaca-Chile,-20.1636672,-69.5463448
+Tlaxcala,Mexico,Tlaxcala-Mexico,19.416667,-98.166667
+Tocantins,Brazil,Tocantins-Brazil,-10.8855129,-48.3716912
+Unknown,Brazil,Unknown-Brazil,-3.8341393,-32.40008600486
+Unknown,Chile,Unknown-Chile,-53.1512959,-70.8954054
+Valparaiso,Chile,Valparaiso-Chile,-33.0458456,-71.6196749
+Veracruz,Mexico,Veracruz-Mexico,19.333333,-96.666667
+Yucatan,Mexico,Yucatan-Mexico,20.6845957,-88.8755669
+Zacatecas,Mexico,Zacatecas-Mexico,23.0000001,-103.0000001
+Aichi,Japan,Aichi-Japan,43.2586458,-79.8712
+Akita,Japan,Akita-Japan,39.6898802,140.342608
+Amazonas,Colombia,Amazonas-Colombia,-1.0197136,-71.9383333
+Amazonas,Peru,Amazonas-Peru,-5,-78
+Ancash,Peru,Ancash-Peru,-9.5,-77.75
+Antioquia,Colombia,Antioquia-Colombia,7.15384335,-75.444040009994
+Aomori,Japan,Aomori-Japan,40.886943,140.590121
+Apurimac,Peru,Apurimac-Peru,-14,-73
+Arauca,Colombia,Arauca-Colombia,6.6666755,-71.0000086
+Arequipa,Peru,Arequipa-Peru,-16.3988667,-71.5369607
+Atlantico,Colombia,Atlantico-Colombia,10.7500084,-75.0000086
+Ayacucho,Peru,Ayacucho-Peru,-14,-74
+Bolivar,Colombia,Bolivar-Colombia,9,-74.333333
+Boyaca,Colombia,Boyaca-Colombia,5.6278979,-72.8268617
+Cajamarca,Peru,Cajamarca-Peru,-6.25,-78.833333
+Caldas,Colombia,Caldas-Colombia,5.3302514,-75.2873471
+Callao,Peru,Callao-Peru,-12.0522626,-77.1391133
+Capital District,Colombia,Capital District-Colombia,10.5145375,-66.9458357
+Caqueta,Colombia,Caqueta-Colombia,1.1153385,-74.1056838
+Casanare,Colombia,Casanare-Colombia,5.5000085,-71.5000086
+Cauca,Colombia,Cauca-Colombia,2.715645,-76.662665
+Cesar,Colombia,Cesar-Colombia,9.3333415,-73.5000086
+Chiba,Japan,Chiba-Japan,35.609985,140.118126
+Choco,Colombia,Choco-Colombia,6.0000085,-77.0000086
+Cordoba,Colombia,Cordoba-Colombia,8.3344713,-75.6666238
+Cundinamarca,Colombia,Cundinamarca-Colombia,5.0000086,-74.1666756
+Cusco,Peru,Cusco-Peru,-13.5170887,-71.9785356
+Ehime,Japan,Ehime-Japan,33.6013646,132.8185275
+Fukui,Japan,Fukui-Japan,35.9263502,136.6068127
+Fukuoka,Japan,Fukuoka-Japan,33.6251241,130.6180016
+Fukushima,Japan,Fukushima-Japan,37.75454,140.4592144
+Gifu,Japan,Gifu-Japan,35.7867449,137.0460777
+Gunma,Japan,Gunma-Japan,36.52198,139.033483
+Hiroshima,Japan,Hiroshima-Japan,34.3916058,132.4518156
+Hokkaido,Japan,Hokkaido-Japan,43.4603175,143.330715792837
+Huancavelica,Peru,Huancavelica-Peru,-13,-75
+Huanuco,Peru,Huanuco-Peru,-9.5,-75.833333
+Huila,Colombia,Huila-Colombia,2.4738993,-75.5900113
+Hyogo,Japan,Hyogo-Japan,34.6677915,135.1641816
+Ibaraki,Japan,Ibaraki-Japan,36.2869536,140.4703384
+Ica,Peru,Ica-Peru,-14.338611,-75.648333
+Ishikawa,Japan,Ishikawa-Japan,37.1570412,140.4468974
+Junin,Peru,Junin-Peru,-11.5,-75
+Kagawa,Japan,Kagawa-Japan,35.3562043,139.3999184
+Kagoshima,Japan,Kagoshima-Japan,31.572494,130.527873
+Kanagawa,Japan,Kanagawa-Japan,35.4710257,139.6271352
+Kochi,Japan,Kochi-Japan,33.5680384,133.5394221
+Kumamoto,Japan,Kumamoto-Japan,22.5406641,113.969089
+Kyoto,Japan,Kyoto-Japan,35.021041,135.7556075
+La Guajira,Colombia,La Guajira-Colombia,11.2780115,-72.6135766
+La Libertad,Peru,La Libertad-Peru,-8,-78.5
+Lambayeque,Peru,Lambayeque-Peru,-6.333333,-80
+Lima,Peru,Lima-Peru,-12.0621065,-77.0365256
+Loreto,Peru,Loreto-Peru,-5,-75
+Madre de Dios,Peru,Madre de Dios-Peru,-12,-70.25
+Magdalena,Colombia,Magdalena-Colombia,10.0000085,-74.5000086
+Meta,Colombia,Meta-Colombia,3.5000086,-73.0000086
+Mie,Japan,Mie-Japan,34.7339685,136.5154489
+Miyagi,Japan,Miyagi-Japan,34.974078,139.8393992
+Miyazaki,Japan,Miyazaki-Japan,31.9076334,131.4204022
+Moquegua,Peru,Moquegua-Peru,-16.833333,-70.916667
+Nagano,Japan,Nagano-Japan,36.1143945,138.0319015
+Nagasaki,Japan,Nagasaki-Japan,33.1154683,129.7874339
+Nara,Japan,Nara-Japan,34.2963089,135.8816819
+Narino,Colombia,Narino-Colombia,1.5,-78.0000086
+Niigata,Japan,Niigata-Japan,37.6452283,138.7669125
+Norte de Santander,Colombia,Norte de Santander-Colombia,8.4417924,-73.0492505
+Oita,Japan,Oita-Japan,33.1819875,131.4270217
+Okayama,Japan,Okayama-Japan,34.6553944,133.9194595
+Okinawa,Japan,Okinawa-Japan,26.3343738,127.8056597
+Osaka,Japan,Osaka-Japan,40.6932715,-111.9545824
+Pasco,Peru,Pasco-Peru,-10.5,-75.25
+Piura,Peru,Piura-Peru,-5,-80.333333
+Port Quarantine,Japan,Port Quarantine-Japan,47.53175,-122.651352
+Puno,Peru,Puno-Peru,-15,-70
+Putumayo,Colombia,Putumayo-Colombia,0.5000086,-76.0000086
+Quindio,Colombia,Quindio-Colombia,4.3435926,-75.7232898
+Risaralda,Colombia,Risaralda-Colombia,5.2102948,-75.9842236
+Saga,Japan,Saga-Japan,33.2185408,130.1296585
+Saitama,Japan,Saitama-Japan,35.8616402,139.6457957
+San Andres y Providencia,Colombia,San Andres y Providencia-Colombia,12.8086902,-81.4908431
+San Martin,Peru,San Martin-Peru,-7,-76.833333
+Santander,Colombia,Santander-Colombia,7.0000085,-73.2500086
+Shiga,Japan,Shiga-Japan,35.2018268,135.9245653
+Shimane,Japan,Shimane-Japan,35.7819102,139.797285920612
+Shizuoka,Japan,Shizuoka-Japan,34.979149,138.38299
+Sucre,Colombia,Sucre-Colombia,9,-75
+Tacna,Peru,Tacna-Peru,-18.0138696,-70.2511597
+Tochigi,Japan,Tochigi-Japan,36.3818177,139.733591
+Tokushima,Japan,Tokushima-Japan,34.0698307,134.5550353
+Tokyo,Japan,Tokyo-Japan,55.7746222,37.6326806
+Tolima,Colombia,Tolima-Colombia,3.7500086,-75.2500086
+Tottori,Japan,Tottori-Japan,35.3555075,133.8678525
+Toyama,Japan,Toyama-Japan,36.6957569,137.2136215
+Tumbes,Peru,Tumbes-Peru,-3.833333,-80.5
+Ucayali,Peru,Ucayali-Peru,-9,-73.5
+Unknown,Japan,Unknown-Japan,33.5715804,130.4400443
+Unknown,Peru,Unknown-Peru,-7.112768,-76.6507931
+Valle del Cauca,Colombia,Valle del Cauca-Colombia,4.0639569,-76.1233767453676
+Vaupes,Colombia,Vaupes-Colombia,0.2500086,-70.7500086
+Wakayama,Japan,Wakayama-Japan,34.234617,135.1782181
+Yamagata,Japan,Yamagata-Japan,38.2553393,140.3400205
+Yamaguchi,Japan,Yamaguchi-Japan,34.1781317,131.4737077
+Yamanashi,Japan,Yamanashi-Japan,35.6928452,138.6871263
+Guainia,Colombia,Guainia-Colombia,2.5000086,-69.0000086
+Vichada,Colombia,Vichada-Colombia,5.0000086,-69.5000086
+Adygea Republic,Russia,Adygea Republic-Russia,44.6939006,40.1520421
+Altai Krai,Russia,Altai Krai-Russia,52.6932243,82.6931424
+Altai Republic,Russia,Altai Republic-Russia,50.7114101,86.8572186
+Amur Oblast,Russia,Amur Oblast-Russia,52.8032368,128.437295
+Arkhangelsk Oblast,Russia,Arkhangelsk Oblast-Russia,63.5589686,43.1221646
+Astrakhan Oblast,Russia,Astrakhan Oblast-Russia,47.1878186,47.608851
+Bashkortostan Republic,Russia,Bashkortostan Republic-Russia,54.8573563,57.1439682
+Belgorod Oblast,Russia,Belgorod Oblast-Russia,50.7080119,37.5837615
+Bryansk Oblast,Russia,Bryansk Oblast-Russia,52.8873315,33.415853
+Buryatia Republic,Russia,Buryatia Republic-Russia,52.7182426,109.492143
+Chechen Republic,Russia,Chechen Republic-Russia,43.3976147,45.6985005
+Chelyabinsk Oblast,Russia,Chelyabinsk Oblast-Russia,54.4223954,61.1865846
+Cherkasy Oblast,Ukraine,Cherkasy Oblast-Ukraine,49.1460165,31.2271744
+Chernihiv Oblast,Ukraine,Chernihiv Oblast-Ukraine,51.272593,31.7417235
+Chernivtsi Oblast,Ukraine,Chernivtsi Oblast-Ukraine,48.3810791,26.1081673
+Chukotka Autonomous Okrug,Russia,Chukotka Autonomous Okrug-Russia,66.0006475,169.4900869
+Chuvashia Republic,Russia,Chuvashia Republic-Russia,55.4259922,47.0849429
+Crimea Republic*,Ukraine,Crimea Republic*-Ukraine,45.28350435,34.2008187752655
+Dagestan Republic,Russia,Dagestan Republic-Russia,43.0574916,47.1332224
+Dnipropetrovsk Oblast,Ukraine,Dnipropetrovsk Oblast-Ukraine,48.662589,34.9501715
+Donetsk Oblast,Ukraine,Donetsk Oblast-Ukraine,47.9212914,37.7809825
+Ingushetia Republic,Russia,Ingushetia Republic-Russia,43.1655309,44.979682
+Irkutsk Oblast,Russia,Irkutsk Oblast-Russia,56.6370122,104.719221
+Ivano-Frankivsk Oblast,Ukraine,Ivano-Frankivsk Oblast-Ukraine,48.7481718,24.5207477
+Ivanovo Oblast,Russia,Ivanovo Oblast-Russia,56.9167446,41.4352137
+Jewish Autonomous Okrug,Russia,Jewish Autonomous Okrug-Russia,48.5601613,132.2775662
+Kabardino-Balkarian Republic,Russia,Kabardino-Balkarian Republic-Russia,43.47691225,43.6047654495046
+Kaliningrad Oblast,Russia,Kaliningrad Oblast-Russia,54.7293041,21.1489473
+Kalmykia Republic,Russia,Kalmykia Republic-Russia,46.2313018,45.3275745
+Kaluga Oblast,Russia,Kaluga Oblast-Russia,54.4382773,35.5272854
+Kamchatka Krai,Russia,Kamchatka Krai-Russia,57.1914882,160.0383819
+Karachay-Cherkess Republic,Russia,Karachay-Cherkess Republic-Russia,43.7368326,41.7267991
+Karelia Republic,Russia,Karelia Republic-Russia,62.6194031,33.4920267
+Kemerovo Oblast,Russia,Kemerovo Oblast-Russia,54.5335781,87.342861
+Khabarovsk Krai,Russia,Khabarovsk Krai-Russia,51.6312684,136.121524
+Khakassia Republic,Russia,Khakassia Republic-Russia,53.72258845,91.4429362724106
+Khanty-Mansi Autonomous Okrug,Russia,Khanty-Mansi Autonomous Okrug-Russia,61.0259025,69.0982628
+Kharkiv Oblast,Ukraine,Kharkiv Oblast-Ukraine,49.8299582,36.3788957
+Kherson Oblast,Ukraine,Kherson Oblast-Ukraine,46.5421715,33.4079326
+Khmelnytskyi Oblast,Ukraine,Khmelnytskyi Oblast-Ukraine,49.268624,27.0635998
+Kiev,Ukraine,Kiev-Ukraine,50.4500336,30.5241361
+Kiev Oblast,Ukraine,Kiev Oblast-Ukraine,50.178595,30.4924884
+Kirov Oblast,Russia,Kirov Oblast-Russia,57.9665589,49.4074599
+Kirovohrad Oblast,Ukraine,Kirovohrad Oblast-Ukraine,48.3725226,31.7834817
+Komi Republic,Russia,Komi Republic-Russia,63.9881421,54.3326073
+Kostroma Oblast,Russia,Kostroma Oblast-Russia,58.424756,44.2533273
+Krasnodar Krai,Russia,Krasnodar Krai-Russia,45.7684014,39.0261044
+Krasnoyarsk Krai,Russia,Krasnoyarsk Krai-Russia,63.3233807,97.0979974
+Kurgan Oblast,Russia,Kurgan Oblast-Russia,55.7655302,64.5632681
+Kursk Oblast,Russia,Kursk Oblast-Russia,51.6568453,36.4852695
+Leningrad Oblast,Russia,Leningrad Oblast-Russia,60.1853296,32.3925325
+Lipetsk Oblast,Russia,Lipetsk Oblast-Russia,52.6935178,39.1122664
+Luhansk Oblast,Ukraine,Luhansk Oblast-Ukraine,49.2724587,38.9150477
+Lviv Oblast,Ukraine,Lviv Oblast-Ukraine,49.6512234,23.8266948
+Magadan Oblast,Russia,Magadan Oblast-Russia,63.5515028,154.014726
+Mari El Republic,Russia,Mari El Republic-Russia,56.5767504,47.8817512
+Mordovia Republic,Russia,Mordovia Republic-Russia,54.4419829,44.4661144
+Moscow,Russia,Moscow-Russia,55.7504461,37.6174943
+Moscow Oblast,Russia,Moscow Oblast-Russia,55.5043158,38.0353929
+Murmansk Oblast,Russia,Murmansk Oblast-Russia,68.0000418,33.9999151
+Mykolaiv Oblast,Ukraine,Mykolaiv Oblast-Ukraine,47.3886032,31.9442334
+Nenets Autonomous Okrug,Russia,Nenets Autonomous Okrug-Russia,67.6783253,57.0626853
+Nizhny Novgorod Oblast,Russia,Nizhny Novgorod Oblast-Russia,55.4718033,44.0911594
+North Ossetia - Alania Republic,Russia,North Ossetia - Alania Republic-Russia,43.056452,44.358372
+Novgorod Oblast,Russia,Novgorod Oblast-Russia,58.2843833,32.5169757
+Novosibirsk Oblast,Russia,Novosibirsk Oblast-Russia,54.9720169,79.4813924
+Odessa Oblast,Ukraine,Odessa Oblast-Ukraine,46.1147226,29.9567193
+Omsk Oblast,Russia,Omsk Oblast-Russia,56.0935263,73.5099936
+Orel Oblast,Russia,Orel Oblast-Russia,52.9685433,36.0692477
+Orenburg Oblast,Russia,Orenburg Oblast-Russia,52.0269262,54.7276647
+Penza Oblast,Russia,Penza Oblast-Russia,53.1655415,44.7879181
+Perm Krai,Russia,Perm Krai-Russia,58.5951603,56.3159546
+Poltava Oblast,Ukraine,Poltava Oblast-Ukraine,49.8607809,33.7498787
+Primorsky Krai,Russia,Primorsky Krai-Russia,45.0819456,134.726645
+Pskov Oblast,Russia,Pskov Oblast-Russia,57.5358729,28.8586826
+Rivne Oblast,Ukraine,Rivne Oblast-Ukraine,51.2074112,26.5208033
+Rostov Oblast,Russia,Rostov Oblast-Russia,47.6222451,40.7957942
+Ryazan Oblast,Russia,Ryazan Oblast-Russia,54.4226732,40.5705246
+Saint Petersburg,Russia,Saint Petersburg-Russia,59.938732,30.316229
+Sakha (Yakutiya) Republic,Russia,Sakha (Yakutiya) Republic-Russia,,
+Sakhalin Oblast,Russia,Sakhalin Oblast-Russia,49.7219665,143.448533
+Samara Oblast,Russia,Samara Oblast-Russia,53.2128813,50.8914633
+Saratov Oblast,Russia,Saratov Oblast-Russia,51.6520555,46.8631952
+Sevastopol*,Ukraine,Sevastopol*-Ukraine,44.6054434,33.5220842
+Smolensk Oblast,Russia,Smolensk Oblast-Russia,55.0343496,33.0192065
+Stavropol Krai,Russia,Stavropol Krai-Russia,44.8632577,43.4406913
+Sumy Oblast,Ukraine,Sumy Oblast-Ukraine,50.7696518,34.3289305
+Sverdlovsk Oblast,Russia,Sverdlovsk Oblast-Russia,58.6414755,61.8021546
+Tambov Oblast,Russia,Tambov Oblast-Russia,52.9019574,41.3578918
+Tatarstan Republic,Russia,Tatarstan Republic-Russia,55.76549715,52.4330607831139
+Ternopil Oblast,Ukraine,Ternopil Oblast-Ukraine,49.6630002,25.6167516
+Tomsk Oblast,Russia,Tomsk Oblast-Russia,58.6124279,82.0475315
+Tula Oblast,Russia,Tula Oblast-Russia,53.9570701,37.3690909
+Tver Oblast,Russia,Tver Oblast-Russia,57.1134475,35.1744428
+Tyumen Oblast,Russia,Tyumen Oblast-Russia,58.8206488,70.3658837
+Tyva Republic,Russia,Tyva Republic-Russia,51.4017149,93.8582593
+Udmurt Republic,Russia,Udmurt Republic-Russia,57.1961165,52.6959832
+Ulyanovsk Oblast,Russia,Ulyanovsk Oblast-Russia,54.1463177,47.2324921
+Unknown,Colombia,Unknown-Colombia,8.1911842,-72.5153488
+Vinnytsia Oblast,Ukraine,Vinnytsia Oblast-Ukraine,48.8990315,28.516068
+Vladimir Oblast,Russia,Vladimir Oblast-Russia,56.0503336,40.6561633
+Volgograd Oblast,Russia,Volgograd Oblast-Russia,49.6048339,44.2903582
+Vologda Oblast,Russia,Vologda Oblast-Russia,60.0391461,43.1215213
+Volyn Oblast,Ukraine,Volyn Oblast-Ukraine,51.5451167,24.6627893
+Voronezh Oblast,Russia,Voronezh Oblast-Russia,50.9800393,40.1506507
+Yamalo-Nenets Autonomous Okrug,Russia,Yamalo-Nenets Autonomous Okrug-Russia,67.1471631,74.3415488
+Yaroslavl Oblast,Russia,Yaroslavl Oblast-Russia,57.7781976,39.0021095
+Zabaykalsky Krai,Russia,Zabaykalsky Krai-Russia,52.248521,115.956325
+Zakarpattia Oblast,Ukraine,Zakarpattia Oblast-Ukraine,48.2953664,23.4466092
+Zaporizhia Oblast,Ukraine,Zaporizhia Oblast-Ukraine,47.4165079,35.922969
+Zhytomyr Oblast,Ukraine,Zhytomyr Oblast-Ukraine,50.9080532,28.3867504
+Blekinge,Sweden,Blekinge-Sweden,56.12401225,15.4021239555526
+Dalarna,Sweden,Dalarna-Sweden,61.06037785,14.2150873169591
+Gavleborg,Sweden,Gavleborg-Sweden,61.26138005,16.6987101121522
+Gotland,Sweden,Gotland-Sweden,57.4174802,18.5369579274999
+Halland,Sweden,Halland-Sweden,56.96045925,12.807325812324
+Jamtland Harjedalen,Sweden,Jamtland Harjedalen-Sweden,62.9464581,12.436292
+Jonkoping,Sweden,Jonkoping-Sweden,57.7825634,14.165719
+Kalmar,Sweden,Kalmar-Sweden,57.02784235,16.5752680106162
+Kronoberg,Sweden,Kronoberg-Sweden,56.80067805,14.4111609951087
+Norrbotten,Sweden,Norrbotten-Sweden,66.5270698,22.9531436000761
+Orebro,Sweden,Orebro-Sweden,59.2747287,15.2151181
+Ostergotland,Sweden,Ostergotland-Sweden,58.36782395,16.0504272038854
+Skane,Sweden,Skane-Sweden,55.84694095,13.6358312123795
+Sormland,Sweden,Sormland-Sweden,58.95868325,17.539918109268
+Stockholm,Sweden,Stockholm-Sweden,59.3251172,18.0710935
+Uppsala,Sweden,Uppsala-Sweden,59.8586126,17.6387436
+Varmland,Sweden,Varmland-Sweden,59.89054465,13.294924808071
+Vasterbotten,Sweden,Vasterbotten-Sweden,64.2825306,20.4961141000083
+Vasternorrland,Sweden,Vasternorrland-Sweden,63.05896925,18.1058682647265
+Vastmanland,Sweden,Vastmanland-Sweden,59.6965639,15.6236610213228
+Vastra Gotaland,Sweden,Vastra Gotaland-Sweden,58.20302695,12.6497300224278
+Guaviare,Colombia,Guaviare-Colombia,1.6894444,-72.8202864
+Andaman and Nicobar Islands,India,Andaman and Nicobar Islands-India,12.61123865,92.8316540641493
+Andhra Pradesh,India,Andhra Pradesh-India,15.9240905,80.1863809
+Arunachal Pradesh,India,Arunachal Pradesh-India,28.0937702,94.5921326
+Assam,India,Assam-India,26.4073841,93.2551303
+Azad Jammu and Kashmir,Pakistan,Azad Jammu and Kashmir-Pakistan,33.84412,73.796642
+Balochistan,Pakistan,Balochistan-Pakistan,28,66
+Bihar,India,Bihar-India,25.6440845,85.906508
+Chandigarh,India,Chandigarh-India,30.7334421,76.7797143
+Chhattisgarh,India,Chhattisgarh-India,21.6637359,81.8406351
+Dadar Nagar Haveli,India,Dadar Nagar Haveli-India,,
+Delhi,India,Delhi-India,28.6517178,77.2219388
+Gilgit-Baltistan,Pakistan,Gilgit-Baltistan-Pakistan,35.9999972,75.0000023
+Goa,India,Goa-India,15.3004543,74.0855134
+Gujarat,India,Gujarat-India,22.3850008,71.7452633
+Haryana,India,Haryana-India,29,76
+Himachal Pradesh,India,Himachal Pradesh-India,31.81676015,77.3493205196886
+Islamabad,Pakistan,Islamabad-Pakistan,33.6938118,73.0651511
+Jammu and Kashmir,India,Jammu and Kashmir-India,33.5574473,75.06152
+Jharkhand,India,Jharkhand-India,23.4559809,85.2557301
+Karnataka,India,Karnataka-India,14.5203896,75.7223521
+Kerala,India,Kerala-India,10.3528744,76.5120396
+Khyber Pakhtunkhwa,Pakistan,Khyber Pakhtunkhwa-Pakistan,34.5,72
+Ladakh,India,Ladakh-India,33.9456407,77.6568576
+Madhya Pradesh,India,Madhya Pradesh-India,23.9699282,79.3948695462523
+Maharashtra,India,Maharashtra-India,19.531932,76.0554568
+Manipur,India,Manipur-India,24.7208818,93.9229386
+Meghalaya,India,Meghalaya-India,25.5379432,91.2999102
+Mizoram,India,Mizoram-India,23.2146169,92.8687612
+Nagaland,India,Nagaland-India,26.1630556,94.5884911
+Odisha,India,Odisha-India,20.5431241,84.6897321
+Puducherry,India,Puducherry-India,11.9340568,79.8306447
+Punjab,India,Punjab-India,30.9293211,75.5004841
+Punjab,Pakistan,Punjab-Pakistan,31,72
+Rajasthan,India,Rajasthan-India,26.8105777,73.7684549
+Sikkim,India,Sikkim-India,27.601029,88.4541363868015
+Sindh,Pakistan,Sindh-Pakistan,25.5,69
+Tamil Nadu,India,Tamil Nadu-India,10.9094334,78.3665347
+Telangana,India,Telangana-India,17.8495919,79.1151663
+Tripura,India,Tripura-India,23.7750823,91.7025091
+Unknown,India,Unknown-India,20.9948185,74.7461484
+Uttar Pradesh,India,Uttar Pradesh-India,27.1303344,80.859666
+Uttarakhand,India,Uttarakhand-India,30.09199355,79.3217665934302
+West Bengal,India,West Bengal-India,22.9964948,87.6855882
+Dadra and Nagar Haveli and Daman and Diu,India,Dadra and Nagar Haveli and Daman and Diu-India,20.71798575,70.932399240922
+England,UK,England-UK,52.7954791,-0.540240286617432
+Northern Ireland,UK,Northern Ireland-UK,54.6294982,-6.7654416
+Scotland,UK,Scotland-UK,56.7861112,-4.1140518
+Unknown,UK,Unknown-UK,53.4322053,-2.2330801
+Wales,UK,Wales-UK,52.2928116,-3.73893
+Drenthe,Netherlands,Drenthe-Netherlands,52.9067922,6.6368423
+Flevoland,Netherlands,Flevoland-Netherlands,52.4484375,5.4235397
+Friesland,Netherlands,Friesland-Netherlands,53.0923689,5.777043
+Gelderland,Netherlands,Gelderland-Netherlands,52.1014041,5.9515701
+Groningen,Netherlands,Groningen-Netherlands,53.2190652,6.5680077
+Limburg,Netherlands,Limburg-Netherlands,51.2015196,5.9046302
+Noord-Brabant,Netherlands,Noord-Brabant-Netherlands,51.6017723,5.4441391
+Noord-Holland,Netherlands,Noord-Holland-Netherlands,52.7212825,4.820665
+Overijssel,Netherlands,Overijssel-Netherlands,52.4254143,6.4610611
+Unknown,Netherlands,Unknown-Netherlands,51.9176559,4.4752796
+Utrecht,Netherlands,Utrecht-Netherlands,52.0949753,5.109708
+Zeeland,Netherlands,Zeeland-Netherlands,51.4162975,3.7028061
+Zuid-Holland,Netherlands,Zuid-Holland-Netherlands,51.9966792,4.5597397
+Iwate,Japan,Iwate-Japan,39.9724169,141.2124422
+Lakshadweep,India,Lakshadweep-India,10.81308375,73.680534447349
