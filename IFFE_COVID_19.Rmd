@@ -1,0 +1,1485 @@
+---
+title: "EJERCICIO MBDA-IFFE COVID-19"
+author: "Jesús Mira Aldao"
+output:
+  html_document:
+    df_print: kable
+    toc: yes
+  pdf_document: default
+  word_document:
+    toc: yes
+editor_options:
+  chunk_output_type: inline
+---
+
+# Objectivo
+
+Este trabajo se ha realizado a modo de práctica dentro del Master de Big Data y Business Analytics impartido por IFFE Business School. Su objetivo es que sirva como introducción al analysis de datos con R.
+
+* Lo primero que se hará será importar un fichero csv con información sobre el coronavirus COVID-19.
+
+* Se almacenará en una base de datos con estructura en estrella en MySQL.
+
+* Utilizando esta base de datos como referencia se procesará la información y se responderá a las preguntas planteadas en el ejercicio.
+
+
+
+
+# Analysis
+
+
+
+## Librerías y Scripts
+
+```{r}
+library(data.table)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(reticulate)
+library(leaflet)
+library(leafem)
+library(htmltools)
+source('funcionesmysql.r')
+```
+
+## Actualiación de los datos:
+
+
+Lo primero que vamos a hacer será ejecutar un script en python que se usará la API de Kaggle para actualizar el fichero con el que trabajaremos.
+
+Para ejecutar este script es necesario tener las credenciales de kaggle.
+Se pueden descargar muy fácilmente siguiendo las instrucciones de su página web.
+Nosotros hemos colocado el fichero json con el usuario y la clave dentro del directorio .kaggle. 
+    
+También es necesario tener installa la api de kaggle.
+        
+- pip install kaggle
+        
+ o si se trabaja con python desde anaconda:
+        
+- conda install -c conda-forge kaggle
+
+
+```{r}
+
+use_python("C:/Users/jesus/Anaconda3/python.exe", required = T)
+system("python download_files.py")
+
+```
+
+Si no ejecutamos esta parte podemos utilizar el fichero que ya exsite dentro del directorio /data o descargar la última versión de manera manual.
+
+
+## Questiones:
+
+
+
+### 1.- Cargar datos desde fichero csv.
+
+Primero cargamos los datos sobre un dataframe y echamos un vistazo a la información que contiene:
+
+```{r}
+df <- fread(file = 'data/covid_19_data.csv')
+head(df)
+```
+Vamos a cambiar el nombre de las columnas:
+
+```{r}
+colnames(df) <- c('ID', 
+                  'Observation_Date', 
+                  'Province_State', 
+                  'Country_Region', 
+                  'Last_Update', 
+                  'Confirmed', 
+                  'Deaths', 
+                  'Recovered')
+```
+
+
+Mostramos 10 línesa aleatorias del dataframe:
+
+```{r}
+df[sample(nrow(df), 10),]
+```
+
+Dimensión del dataframe:
+
+```{r}
+dim(df)
+```
+
+Tenemos en total 11299 registros.
+
+
+Núnero de nulos por columna:
+
+```{r}
+na_count <- sapply(df, function(x) sum(length(which(is.na(x)))))
+
+data.frame(na_count)
+```
+Núnero de valores únicos por columna:
+
+```{r}
+n_unique <- rapply(df, function(x) length(unique(x)))
+data.frame(n_unique)
+```
+
+
+Valores únicos de Province_State:
+
+```{r}
+df %>% filter(Province_State == '') %>% 
+  dim()
+```
+
+```{r}
+set.seed(5)
+df %>% group_by(Province_State) %>% 
+   summarise(NMEASURES = n())  %>% 
+   sample_n(10)
+```
+```{r}
+length(unique(df$Province_State))
+```
+
+Vemos que hay 5309 registros sin información de provincia y que algunas provincias incluyen también información del estado en el que se encuentran separado por una coma. En total tenemos 295 provincias diferentes.
+
+
+Valores únicos de Country_Region:
+
+```{r}
+df %>% group_by(Country_Region) %>% 
+   summarise(NMEASURES = n())  %>% 
+   arrange(desc(NMEASURES))  %>%
+   head(10)
+```
+
+```{r}
+length(unique(df$Country_Region))
+```
+
+
+```{r}
+df %>% filter(Country_Region == '') %>% 
+   dim()
+```
+
+
+En este caso hay 215 valores únicos y todos los registros tienen información del país o región.
+
+
+Valores únicos de Observation_Date:
+
+```{r}
+df %>% group_by(Observation_Date) %>% 
+   summarise(NMEASURES = n())  %>% 
+   arrange(desc(Observation_Date))  %>% 
+   head(10)
+```
+```{r}
+df %>% group_by(Observation_Date) %>% 
+   summarise(NMEASURES = n())  %>% 
+   arrange(desc(Observation_Date))  %>% 
+   tail(10)
+```
+
+```{r}
+length(unique(df$Observation_Date))
+```
+
+Existen más registros en fechas más recientes, pero eso es normal a medida que se van incorporando países y regiones a las estadísticas de afectados. Por otro lado todas los registros tienen el mismo formato. Tenemos información de 72 días.
+
+Valores únicos de Last_Update:
+
+```{r}
+set.seed(8)
+df %>% group_by(Last_Update) %>% 
+   summarise(NMEASURES = n())  %>% 
+   sample_n(10)
+```
+
+```{r}
+length(unique(df$Last_Update))
+```
+
+En este caso vemos que la variedad de formatos es más amplia. En principio el análisis los haremos teniendo en cuenta la información diaria de Observation_Date, así que no vamos a tener en cuenta esta columna.
+
+### 2.- Cargar los datos en MySQL. Normalizar los datos creando un modelo en estrella.
+
+El modelo en estrella que se ha creado se puede ver en el fichero adjunto de WorkBench MySQL `COVID_19.mwb`. Adjuntamos también una imágen en este documento de la estructura en estrella de las tablas.
+
+![](pictures/WBM_Covid_19.jpg)
+
+
+En total tenemos 4 tablas. Para insertar los datos vamos a añadir a nuestro dataframe los índices necesarios que funcionarán como primary_key y foreign_key y a construir 4 dataframes auxiliares que luego cargaremos en cada una de las tablas de la base de datos.
+
+```{r}
+#Definimos el índice id_country:
+df <- setDT(df)[, id_country := .GRP, by = Country_Region]
+```
+
+```{r}
+#Definimos el índice id_province, tenemos en cuenta los valores únicos tanto de 
+# country como de provinces, para diferenciar entre posibles provincias con el mismo nombre
+# en countries diferentes.
+df <- setDT(df)[, id_province := .GRP, by = .(Province_State, id_country)]
+```
+
+```{r}
+#Definimos el índice id_date
+df <- setDT(df)[, id_date := .GRP, by = .(Observation_Date)]
+```
+
+
+```{r}
+head(df)
+```
+
+
+
+Para la tabla de hechos usaremos como índice la columna ID del dataframe original, no necesitamos añadir un índice adicional.
+
+Para cargar los datos en las tablas hemos incluido una función dentro del fichero `funcionesmysql.r` llamada `escribemysqltable`. Recibe el nombre de la base de datos, la tabla en la que se quieren cargar los datos y el dataframe con los datos que queremos cargar. Los datos de cada tabla serán subframes del dataframe anterior:
+
+```{r}
+#subframe para la tabla dim_country_region
+df_aux <- data.frame(ID_COUNTRY_REGION = df$id_country, 
+                     NAME = df$Country_Region)
+#cargamos df_aux en la tabla dim_country_region
+escribemysqltable('covid_19', 'dim_country_region', df_aux)
+
+
+#subframe para la tabla dim_location
+df_aux <- data.frame(ID_LOCATION = df$id_province, 
+                     ID_COUNTRY_REGION = df$id_country, 
+                     PROVINCE_STATE = df$Province_State)
+#cargamos df_aux en la tabla dim_location
+escribemysqltable('covid_19', 'dim_location', df_aux)
+
+#subframe para la tabla dim_date
+df_aux <- data.frame(ID_DATE = df$id_date, 
+                     DATE = df$Observation_Date, 
+                     UPDATE_DATE = df$Last_Update)
+#cargamos df_aux en la tabla dim_date
+escribemysqltable('covid_19', 'dim_date', df_aux)
+
+#subframe para la tabla fact_covid_19
+df_aux <- data.frame(ID = df$ID, 
+                     ID_LOCATION = df$id_province, 
+                     ID_DATE = df$id_date, 
+                     CONFIRMED = df$Confirmed, 
+                     DEATHS = df$Deaths, 
+                     RECOVERED = df$Recovered)
+#cargamos df_aux en la tabla fact_covid_19
+escribemysqltable('covid_19', 'fact_covid_19', df_aux)
+
+```
+
+
+### 3. y 4. Trabajos en SQL.
+
+* Mediante SQL obtener el total de casos positivos confirmados por país.
+
+* Mediante SQL calcular el ratio de mortalidad del virus como 100 * Numero de fallecidos / Numero de Confirmados.
+
+* Almacena este dato en la misma tabla que has creado para guardar los datos. Usa ALTER TABLE y UPDATE.
+
+
+Estos trabajos se han realizado mediante sentencias SQL ejecutadas desde el WorkBench de MySQL. 
+
+Adjuntamos las setencias SQL en un fichero anexo llamado `consultas.sql`.
+
+Como no son muy extensas las adjunto también en este documento.
+
+
+
+```{}
+
+/*****************************************************/
+/*3.  Total de casos positivos confirmados por país.**/
+/* Primero creamos una tabal countries_data en la que*/
+/* seleccionamos los valores más recientes de cada ***/
+/* provincia o localización.                       ***/
+/* Sobre esta tabla agrupamos el total de confirmados*/
+/* por país (para todas las provincias) y sustituimos*/
+/* el id del país por su nombre.                     */
+/*****************************************************/
+
+WITH countries_data
+AS
+   (
+	     SELECT   f.id_location                     AS id_location,
+                  f.confirmed                       AS confirmed,
+				  f.id_date                         AS id_date,
+				  ROW_NUMBER() OVER 
+				      (PARTITION BY (f.id_location)
+                       ORDER     BY f.id_date DESC) AS rn1
+         FROM     fact_covid_19 f
+    )
+	
+SELECT   cr.name           AS country_region,
+         SUM(c.confirmed)  AS total_confirmed
+FROM     countries_data c
+JOIN     dim_location l
+ON       c.id_location = l.id_location
+JOIN     dim_country_region cr
+ON       l.id_country_region = cr.id_country_region
+WHERE    (c.rn1 = 1)
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+/******************************************************/
+/* 4. Ratio de mortalidad del virus como              */
+/* 100 * Numero de fallecidos / Numero de Confirmados.*/
+/* Almacena este dato en la misma tabla que has creado*/ 
+/* para guardar los datos. Usa ALTER TABLE y UPDATE   */
+/******************************************************/
+
+/* Añadimos la nueva columna deaths_ratio             */
+
+ALTER  TABLE  covid_19.fact_covid_19 
+ADD    COLUMN deaths_ratio FLOAT NULL 
+AFTER  recovered;
+
+/* Añadimos los datos a la nueva columna              */
+
+UPDATE fact_covid_19
+SET    deaths_ratio = CASE
+       WHEN confirmed > 0 THEN deaths / confirmed * 100
+       WHEN confirmed = 0 THEN 0
+       END
+WHERE id >= 0;
+
+/* Hemos incluido la key en la consulta para no tener  */
+/* que modificar el safe mode, aunque podríamos haberlo*/
+/* desactivado con 'SET SQL_SAFE_UPDATES = 0;' he      */
+/* preferido hacerlo así.                              */
+
+```
+
+Vamos a ejecutar la primera consulta en este notebook para observar el resultado.
+Para ello usaremos la función 'sendmysqlquery' que se conectará a la base de datos y ejecutará la sentencia SQL que le indiquemos. 
+El resultado de la primera consulta sería el siguiente:
+
+
+```{r}
+sqltext = "WITH countries_data
+AS
+   (
+	     SELECT   f.id_location                     AS id_location,
+                  f.confirmed                       AS confirmed,
+				  f.id_date                         AS id_date,
+				  ROW_NUMBER() OVER 
+				      (PARTITION BY (f.id_location)
+                       ORDER     BY f.id_date DESC) AS rn1
+         FROM     fact_covid_19 f
+    )
+	
+SELECT   cr.name           AS country_region,
+         SUM(c.confirmed)  AS total_confirmed
+FROM     countries_data c
+JOIN     dim_location l
+ON       c.id_location = l.id_location
+JOIN     dim_country_region cr
+ON       l.id_country_region = cr.id_country_region
+WHERE    (c.rn1 = 1)
+GROUP BY 1
+ORDER BY 2 DESC;"
+
+df_aux <- sendmysqlquery('covid_19', sqltext)
+
+head(df_aux, 10)
+```
+
+En esta consulta hemos ordenado por fecha teniendo en cuenta ventanas de pais y provincia, hemos añadido un índice para poder quedarnos con la fecha más reciente de cada pais o provincia. Con los datos resultantes hemos sumado los valores para todas las provincias de cada país.
+
+Lo hemos hecho de esta manera porque los valores no son valores diarios, sino acumulados.
+
+Vamos a ejecutar también la sentencia de update para volver a definir los valores de la columna `deaths_ratio`, por si hemos actualizado los datos de las tabla al cargar un nuevo fichero.
+
+
+```{r}
+sqltext = "UPDATE fact_covid_19
+           SET    deaths_ratio = CASE
+           WHEN confirmed > 0 THEN deaths / confirmed * 100
+           WHEN confirmed = 0 THEN 0
+           END
+           WHERE id >= 0;"
+sendmysqlquery('covid_19', sqltext)
+
+```
+
+
+
+### 5.- Desde R, accede a MySQL y lee los datos.
+
+
+Para leer los datos de las tablas de SQL vamos a usar la función `leemysqltable` incluida en el fichero `funcionesmysql.r`:
+
+```{r}
+df_SQL_data <- leemysqltable('covid_19', 'fact_covid_19')
+```
+```{r}
+tail(df_SQL_data)
+```
+
+### 6.- Con la libreria dplyr vuelve a calcular el ratio de mortalidad.
+
+Lo vamos a hacer utilizando la información del fichero:
+
+```{r}
+# volvemos a leer el fichero
+df_R <- fread(file = 'data/covid_19_data.csv')
+
+# añadimos una columna con la información del ratio de mortalidad
+df_R <- df_R %>%
+  mutate(Deaths_Rate = ifelse(Confirmed != 0, Deaths / Confirmed * 100, 0))
+tail(df_R)
+```
+
+Esta es una comparación de los valores calculados a partir del fichero y los valores almacenados en las tablas.
+
+```{r}
+diferencia = data.frame(df_R$Deaths_Rate, df_SQL_data$DEATHS_RATIO)
+tail(diferencia)
+```
+
+Vemos que los valores son prácticamente idénticos, pero el grado de aproximación no es el mismo. En la tabla de SQL también hemos usado double, pero aproxima un decimal menos.
+
+### 7.- Compara que el dato calculado con R, coincide con el calculado en SQL, creando un vector lógico.
+
+Para crear el vector lógico restamos las dos columnas en ambos dataframes y las comparamos con un valor casi nulo. Sumamos todos los valores del vector y vemos que no hay ningún TRUE.
+
+```{r}
+sum((diferencia$df_R.Deaths_Rate - diferencia$df_SQL_data.DEATHS_RATIO) > 0.0000001)
+```
+Si lo hecemos con un igual etre las dos columnas vemos que hay muchos valores que no son exactamente idénticos
+
+```{r}
+sum((diferencia$df_R.Deaths_Rate != diferencia$df_SQL_data.DEATHS_RATIO))
+```
+```{r}
+diferencia %>% filter((diferencia$df_R.Deaths_Rate != diferencia$df_SQL_data.DEATHS_RATIO)) %>% head
+```
+Sólo se diferencian en que los cálculos hechos en R tienen un decimal más.
+
+### 8.- Calcula en R el dato por País y Provincia con dplyr.
+
+Para responder a las siguientes preguntas vamos a recontruir la información con los datos que tenemos en las tablas de MySQL y cargargalas en un nuevo dataframe que llamaremos `df_MySQL`. Podríamos utilizar directamente la información del dataframe cargado desde el fichero csv, pero he preferido hacerlo del otro modo para probar el acceso a datos de MySQL.
+
+```{r}
+# cargamos en dataframes la información de cada tabla.
+df_SQL_data <- leemysqltable('covid_19', 'fact_covid_19')
+df_SQL_location <- leemysqltable('covid_19', 'dim_location')
+df_SQL_country <- leemysqltable('covid_19', 'dim_country_region')
+df_SQL_date <- leemysqltable('covid_19', 'dim_date')
+
+# juntamos todas las tablas para trabajar con los valores reales
+# y no con los Ids
+df_MySQL <- df_SQL_data %>% 
+  left_join(df_SQL_location, by= "ID_LOCATION")%>%
+  left_join(df_SQL_country, by = "ID_COUNTRY_REGION") %>%
+  left_join(df_SQL_date, by= "ID_DATE")
+
+# eliminamos las columnas de id redundantes.
+df_MySQL <- data.frame(ID = df_MySQL$ID,
+                       DATE = df_MySQL$DATE,
+                       UPDATE_DATE = df_MySQL$UPDATE_DATE,
+                       PROVINCE_STATE = df_MySQL$PROVINCE_STATE,
+                       COUNTRY_REGION = df_MySQL$NAME,
+                       CONFIRMED_SQL = df_MySQL$CONFIRMED,
+                       DEATHS_SQL = df_MySQL$DEATHS,
+                       RECOVERED_SQL = df_MySQL$RECOVERED,
+                       DEATHS_RATIO_SQL = df_MySQL$DEATHS_RATIO)
+
+# damos formato date a la fecha
+df_MySQL$DATE <- as.Date(df_MySQL$DATE, format = "%m/%d/%Y")
+
+# ordenamos la filas por fecha, provincia y país
+df_MySQL <- df_MySQL %>% arrange(DATE, PROVINCE_STATE, COUNTRY_REGION)
+
+```
+
+El resultado es similar a si leyésemos directamente el fichero csv.
+
+```{r}
+dim(df_MySQL)
+```
+```{r}
+head(df_MySQL, 10)
+```
+
+No vamos a usar en ningún momento el campo UPDATE_DATE, pero de todas maneras preferí guardarlo en la tabla DIM_DATE para no perder información por si lo quisiésemos usar más adelante.
+
+Vamos a agrupar ahora por la columna COUNTRY_REGION y mostrar la media de DEATHS_RATIO_SQL para cada país. El resultado lo ordenamos de mayor a menor ratio.
+
+
+```{r}
+df_pais <- df_MySQL %>% 
+  group_by(COUNTRY_REGION) %>% 
+  summarise(NMEASURES = n(),
+            DEATHS_RATIO = mean(DEATHS_RATIO_SQL)) %>% 
+  arrange(desc(DEATHS_RATIO))
+
+head(df_pais,10)
+```
+
+
+Repetimos el proceso, pero agrupando por PROVINCE_STATE:
+
+```{r}
+df_provincia <- df_MySQL %>% 
+  group_by(PROVINCE_STATE) %>% 
+  summarise(NMEASURES = n(),
+            DEATHS_RATIO = mean(DEATHS_RATIO_SQL)) %>% 
+  arrange(desc(DEATHS_RATIO))
+
+head(df_provincia, 10)
+```
+
+### 9.- Grafica con ggplot2 un diagrama de caja (boxplot) del ratio calculado por país.
+
+
+Primero definiremos un tema por defecto que aplicaremos a todas las visualizaciones del documento:
+
+```{r}
+tema_base <- function(){
+                theme_minimal()+
+                theme(
+                   axis.title.x = element_text(size = 12),
+                   axis.title.y = element_text(size = 12),
+                   title = element_text(size = 12),
+                   plot.title = element_text(hjust = 0.5)
+                )+
+                theme(
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_blank(), 
+                   axis.line = element_line(colour = "black"),
+                   legend.justification = c(0, 1),
+                   legend.position = "bottom",
+                   legend.direction = "horizontal"
+                )
+              }
+```
+
+Vemos la distribución del ratio de defunciones por paises.
+
+```{r}
+df_pais %>%  ggplot(aes(x = '', y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  xlab( "Paises" ) +
+  ylab( "Ratio de Defunciones (%)" )
+```
+
+
+Lo que observamos es que está muy ajustada a cero y hay muchos outliers. No se aprecia una distribución muy clara.
+
+
+```{r}
+summary(df_pais$DEATHS_RATIO)
+```
+
+
+Los datos del fichero original son valores acumulados y están guardados por día, región, provincia, etc. Me refiero a que no es lo mismo calcular la tasa de defunción para un país que calcular la media de la tasa de defunciones de sus regiones, por ejemplo. Además de que para calcular la tasa de defunción de un país quizás nos interese quedarnos sólo con el valor más reciente para ese país, teniendo en cuenta que los valores son acumulados, no incrementos diarios.
+
+Por lo tanto puede que este valor no represente muy fielmente la distribución de la tasa de defunción para los distintos países.
+
+Lo que podemos probar es a seleccionar los valores más recientes para cada país y provincia. Sumar los valores para todas las provincias de cada país y calcular los ratios con el total de casos confirmados y defunciones por país
+
+```{r}
+
+df_pais <- df_MySQL %>% 
+  # agrupamos por día, pais y provincia
+  group_by(DATE, COUNTRY_REGION, PROVINCE_STATE) %>%
+  # sumamos las cantidades para cada día, pais y provincia
+    summarise(CONFIRMED = sum(CONFIRMED_SQL),
+              DEATHS = sum(DEATHS_SQL)) %>% 
+  #ordenamos por fecha y nos quedamos con el valor más reciente
+  #de cada provincia
+  group_by(COUNTRY_REGION, PROVINCE_STATE) %>% 
+    mutate(DATE = DATE,
+            CONFIRMED = CONFIRMED,
+            DEATHS = DEATHS) %>% 
+    arrange(desc(DATE)) %>% 
+    slice(1) %>%
+  #volvemos a agrupar por país sumando los valores de todas las
+  #provincias para la fecha más reciente seleccionada en el paso anterior
+  group_by(COUNTRY_REGION) %>% 
+    summarise(PROVINCES_STATES = n(),
+              CONFIRMED = sum(CONFIRMED),
+              DEATHS = sum(DEATHS))
+   
+
+# añadimos una columna con la información del ratio de mortalidad
+df_pais <- df_pais %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+head(df_pais,10)
+
+```
+
+Volvemos a pintar el boxplot:
+
+```{r}
+df_pais %>%  ggplot(aes(x = '', y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  xlab( "Paises" ) +
+  ylab( "Ratio de Defunciones (%)" );
+```
+
+
+Es ligeramente diferente, pero no hay tantos valores cercanos a cero. Vamos a eliminar algunos outliers quedándonos sólo con los ratios inferiores a 5%.
+
+
+```{r}
+df_pais %>%
+  ggplot(aes(x = '', y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  xlab( "Paises" ) +
+  ylim(0,5) +
+  ylab( "Ratio de Defunciones (%)" );
+```
+Este tipo de distribuciones quizás se pueda ver mejor con un histotgrama:
+
+```{r}
+df_pais %>%  ggplot(aes(x = DEATHS_RATIO) ) +
+  geom_histogram(bins = 65, color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  ylab( "Registros" ) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+
+Mostrando solo aquellos valores inferiores al 10%:
+
+```{r}
+df_pais %>%
+  ggplot(aes(x = DEATHS_RATIO) ) +
+  geom_histogram(bins = 40, color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  ylab( "Registros" ) +
+  xlim(-0.5,10) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+La mayor parte de los países tienen un ratio de 0%, seguramente porque no se han detectado muchos casos. Por lo general casi todos los países están por debajo del 3% o 4%.
+
+Vamos a hacer ahora lo mismo pero por provincia. En este caso nos quedamos con los valores más recientes de cada provincia y calculamos los ratios en función de ellos.
+
+Hay países que no tienen información por provincias. Mantenemos la columna país para que no considere todos estos registros como una única provincia. El resultado es que todo el país es considerado una provincia.
+
+```{r}
+
+df_provincia <- df_MySQL %>% 
+  # agrupamos por día, pais y provincia
+  group_by(DATE, COUNTRY_REGION, PROVINCE_STATE) %>%
+  # sumamos las cnatidades para cada día, pais y provincia
+  # esta suma serviría para agrupar si hubiese varías muestras el mismo día
+   summarise(
+          NSAMPLES = n(),
+          CONFIRMED = sum(CONFIRMED_SQL),
+          DEATHS = sum(DEATHS_SQL)) %>% 
+  #ordenamos por fecha y nos quedamos con el valor más reciente
+  #de cada provincia
+  group_by(COUNTRY_REGION, PROVINCE_STATE) %>% 
+   mutate(DATE = DATE,
+          CONFIRMED = CONFIRMED,
+          DEATHS = DEATHS) %>% 
+   arrange(desc(DATE)) %>% 
+   slice(1)
+
+# añadimos una columna con la información del ratio de mortalidad
+df_provincia <- df_provincia %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+head(df_provincia,10)
+
+df_provincia
+
+```
+
+Presentamos de nuevo el resultado en un BoxPlot:
+
+```{r}
+df_provincia %>%  ggplot(aes(y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  xlab( "Paises" ) +
+  ylab( "Ratio de Defunciones (%)" );
+```
+
+
+```{r}
+summary(df_provincia$DEATHS_RATIO)
+```
+
+
+
+
+Nos centramos en las que tienen un porcentage inferior al 5%:
+
+```{r}
+df_provincia %>% filter(DEATHS_RATIO < 5) %>%
+  ggplot(aes(y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  xlab( "Paises" ) +
+  ylab( "Ratio de Defunciones (%)" );
+```
+
+
+
+Vemos también que hay muchos outliers, pero en general tenemos porcentages bastante bajos.
+
+
+Podemos ver en este caso también cual es la distribución en un histograma, aunque seguramente será muy similar a lo que vimos por país.
+
+```{r}
+df_provincia %>%  ggplot(aes(x = DEATHS_RATIO) ) +
+  geom_histogram(bins = 65, color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Provincias" ) +
+  ylab( "Registros" ) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+
+Se ven outliers bastante claros por encima del 25%. Queriendo hacer un análisis estadístico seguramente sería convieniente comenzar por eleiminar todos aquellos registros con menos de 10 o 50 casos.
+
+
+```{r}
+df_provincia %>% 
+   filter(DEATHS_RATIO > 25)  
+```
+
+
+
+```{r}
+df_provincia %>%  filter(DEATHS_RATIO < 5) %>%
+  ggplot(aes(x = DEATHS_RATIO) ) +
+  geom_histogram(bins = 40, color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Provincias" ) +
+  ylab( "Registros" ) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+En esta aproximación en el que hemos limitado el eje x de la gráfica vemos que, si quitamos los elementos con un 0% parece que no existe un skew tan marcado hacia la derecha como en el caso del análisis sólo del país.
+
+Vamos a probar a eliminar aquellos registros con muy pocos casos detectatos, ya que no aportan significancia estadística y seguramente son los que engloban el pico en el 0%. Nos vamos a quedar sólo con las provincias que hayan registrado más de 100 casos.
+
+```{r}
+df_provincia_100 <- df_provincia %>% 
+   filter(CONFIRMED >= 100)  
+```
+
+Vamos a probar a representar la distribución del resultado en un histograma:
+
+```{r}
+df_provincia_100 %>%  ggplot(aes(x = DEATHS_RATIO) ) +
+  geom_histogram(bins = 30, color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  xlim(-0.2, 10) +
+  ggtitle( "Distribución de Ratio de Defunciones por Provincias" ) +
+  ylab( "Registros" ) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+En este caso podemso ver una distribución con skew a la derecha un poco más típica, con máximos entre el 1 y el 1,5%.
+
+Si hacemos lo mismo con los países y nos quedamos sólo con aquellos que tengan más de 500 casos:
+
+```{r}
+df_pais_500 <- df_pais %>% 
+   filter(CONFIRMED >= 500)  
+```
+
+```{r}
+df_pais_500 %>%
+  ggplot(aes(x = DEATHS_RATIO) ) +
+  geom_histogram(bins = 30, color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  ylab( "Registros" ) +
+  xlim(-0.5,10) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+Vemos que recuerda un poco a la gráfica por provincias, también tiene un skew claro hacia la derecha con un máximo en torno a 1,3%.
+
+
+### 10.- Muestra el ratio por país con orden descendente, acompañando el dato del ratio con el número de observaciones con el que se ha calculado.
+
+Esto es básicamente lo que hemos almacenado dentro del dataframe pais. Volvemos a printarlo. Con el sistema que hemos utilizado el número de observaciones se correspondería con el número de provincias porque sólo nos hemos quedado con la observación más reciente, poque se supone es la suma acumulada de todos los casos hasta esa fecha.
+
+```{r}
+head(df_pais,10)
+```
+
+```{r}
+df_pais %>%
+  arrange(desc(PROVINCES_STATES)) %>%
+  head(10)
+```
+Estados unidos y China son los países que más provincias o regiones tienen. En general los países tienen tendencia a reportar un único valor por país.
+
+Por curiosidad vamos a hacer lo mismo por provincias. En este caso, tal como habíamos hecho las operaciones, NSAMPLES es siempre igual a 1, ya que nos hemos quedado con el último valor para cada provincia.
+
+```{r}
+head(df_provincia,10)
+```
+
+Un BoxPlot interesante podría ser ver cómo es la distribución del ratio de defunciones por provincia para aquellos países que tienen información por provincias.
+
+
+
+```{r}
+
+df_provincia <- df_MySQL %>% 
+  # eliminamos los países que no tienen información por provincias
+  filter(PROVINCE_STATE != "")  %>%
+  # agrupamos por día, pais y provincia
+  group_by(DATE, COUNTRY_REGION, PROVINCE_STATE) %>%
+  # sumamos las cnatidades para cada día, pais y provincia
+  # esta suma serviría para agrupar si hubiese varías muestras el mismo día
+   summarise(
+          NSAMPLES = n(),
+          CONFIRMED = sum(CONFIRMED_SQL),
+          DEATHS = sum(DEATHS_SQL)) %>% 
+  #ordenamos por fecha y nos quedamos con el valor más reciente
+  #de cada provincia
+  group_by(COUNTRY_REGION, PROVINCE_STATE) %>% 
+   mutate(DATE = DATE,
+          CONFIRMED = CONFIRMED,
+          DEATHS = DEATHS) %>% 
+   arrange(desc(DATE)) %>% 
+   slice(1)
+
+# añadimos una columna con la información del ratio de mortalidad
+df_provincia <- df_provincia %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+head(df_provincia,10)
+
+```
+
+Antes de representarlo eliminamos aquellos paises que sólo tienen una provincia.
+
+```{r}
+df_provincia %>% 
+  group_by(COUNTRY_REGION) %>%
+  # sumamos el número de muestras, provincias, para cada país. Filtramos 
+  # las que sólo tienen 1 para obtener una lista.
+   summarise(NSAMPLES = n(),
+             PROVINCE_STATE = last(PROVINCE_STATE)) %>%
+   filter(NSAMPLES == 1)  
+```
+
+Hacemos esto porque hay algunos países que tienen información en el campo provincia, pero sólo tienen una (Taiwan: Taiwan). Tampoco nos sirven para representar la distribución en un BoxPlot.
+
+```{r}
+df_provincia <- df_provincia %>%
+  filter(!COUNTRY_REGION %in% c('Austria', 'Germany', 'Hong Kong', 'Iraq', 'Israel', 'Lebanon', 'Macau', 'Taiwan'))
+
+head(df_provincia,10)
+```
+
+De los países restantes, cuántas provincias tiene cada país?
+
+```{r}
+df_provincia %>% 
+  group_by(COUNTRY_REGION) %>%
+  # sumamos las cnatidades para cada día, pais y provincia
+  # esta suma serviría para agrupar si hubiese varías muestras el mismo día
+   summarise(NSAMPLES = n())
+```
+
+En total hay 9 países con más de una provincia.
+En USA hay bastante información de la localización de los registros. Tienen hasta 199 localizaciones diferentes. Existen muchos datos recogidos por ciudades.
+
+
+```{r}
+df_provincia %>%
+  filter(COUNTRY_REGION == 'US') %>%
+  sample_n(1) %>%
+  head(10)
+```
+
+Parece que han recogido la información con mucho detalle en cuanto a su ubicación geográfica.
+
+Vamos a quedarnos sólo con las provincias que tengan más de 10 casos.
+
+```{r}
+df_provincia <- df_provincia %>%
+  filter(CONFIRMED > 10)
+
+head(df_provincia,10)
+```
+
+Ahora tendremos menos provicias por país, pero serán datos un poco más fiables:
+
+```{r}
+df_provincia %>% 
+  group_by(COUNTRY_REGION) %>%
+  # sumamos las cnatidades para cada día, pais y provincia
+  # esta suma serviría para agrupar si hubiese varías muestras el mismo día
+   summarise(NSAMPLES = n())
+```
+
+
+Vamos ahora a representar esta información en varios BoxPlots por país:
+
+
+```{r}
+df_provincia %>%  ggplot(aes(x = COUNTRY_REGION, y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ylim(0, 5) +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  xlab( "Paises" ) +
+  ylab( "Ratio de Defunciones (%)" );
+```
+```{r}
+df_provincia %>%
+  filter(COUNTRY_REGION == 'Others')
+```
+
+Vemos que hay un país que se llama Others. Realmente se trata the dos dos cruceros en los que se han detectado casos. 
+Parece que Holanda y Estados Unidos son los países con una mediana más elevada. El problema de este gráfico es que tenemos muy pocas muestras por pais (provincias o regiones) para la mayor parte de los países, por lo tanto hablar de quantiles o mediana no tiene mucho sentido. Se podrían comparar los casos de China y Estados Unidos porque sí que tienen un número razonable de muestras.
+
+```{r}
+df_provincia  %>% filter(COUNTRY_REGION  %in% c('US', 'Mainland China')) %>% 
+  ggplot(aes(x = COUNTRY_REGION, y = DEATHS_RATIO) ) + 
+  geom_boxplot(outlier.colour = "red", color = "royalblue", fill = "lightblue") +
+  tema_base() +
+  ylim(0, 5) +
+  ggtitle( "Distribución de Ratio de Defunciones por Países" ) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  xlab( "Paises" ) +
+  ylab( "Ratio de Defunciones (%)" );
+```
+
+Vemos que analizando las estadísticas por regiones o provincias, Estados Unidos tiene algo más de dispersión y una mediana un poco más elevada.
+
+Podemos comparar también etos datos en un histograma:
+
+```{r}
+
+# definimos dos dataframes, uno para cada país
+df_us <- df_provincia  %>% filter(COUNTRY_REGION  == 'US')
+df_china <- df_provincia  %>% filter(COUNTRY_REGION  == 'Mainland China')
+
+ggplot() + 
+  # histograma para Estados Unidos
+  geom_histogram(data = df_us, 
+                 aes(x = DEATHS_RATIO, 
+                     color = "US", 
+                     fill = "US"), 
+                 bins = 20, 
+                 alpha = 0.3) +
+  # histograma para China
+  geom_histogram(data = df_china, 
+                 aes(x = DEATHS_RATIO, 
+                     color = "Mainland China", 
+                     fill = "Mainland China"), 
+                 bins = 20, 
+                 alpha = 0.3) +
+  # Definición de colores manual
+  scale_colour_manual(name ="Paises", 
+                      values = c("US" = "red", "Mainland China" = "blue"), 
+                      labels=c("Mainland China" = "Mainland China", "US"= "US")) +
+  scale_fill_manual(name ="Paises", 
+                    values = c("US" = "orange", "Mainland China" = "royalblue"), 
+                    labels=c("Mainland China" = "Mainland China", "US"= "US")) +
+  
+  tema_base() +
+  # título y etiquetas
+  ggtitle( "Distribución de Ratio de Defunciones" ) +
+  ylab( "Número de Regiones" ) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+Parece que en Estados Unidos hay alguna región que destaca por el alto porcentaje de defunciones 
+
+```{r}
+
+df_us %>% filter(DEATHS_RATIO  > 15)
+```
+
+Parece que algo ha pasado en King County. Puede que haya afectado a alguna residencia de ancianos.
+
+Si nos centramos en el resto de regiones:
+
+```{r}
+ggplot() + 
+  # histograma para Estados Unidos
+  geom_histogram(data = df_us, 
+                 aes(x = DEATHS_RATIO, 
+                     color = "US", 
+                     fill = "US"), 
+                 bins = 20, 
+                 alpha = 0.3) +
+  # histograma pra China
+  geom_histogram(data = df_china, 
+                 aes(x = DEATHS_RATIO, 
+                     color = "Mainland China",
+                     fill = "Mainland China"), 
+                 bins = 20, 
+                 alpha = 0.3) +
+  xlim(-0.2, 7) +
+  
+  # Definición de colores manual
+  scale_colour_manual(name ="Paises", 
+                      values = c("US" = "red", "Mainland China" = "blue"), 
+                      labels=c("Mainland China" = "Mainland China", "US"= "US")) +
+  scale_fill_manual(name ="Paises", 
+                    values = c("US" = "orange", "Mainland China" = "royalblue"), 
+                    labels=c("Mainland China" = "Mainland China", "US"= "US")) +
+  
+  tema_base() +
+  # título y etiquetas
+  ggtitle( "Distribución de Ratio de Defunciones" ) +
+  ylab( "Número de Regiones" ) +
+  xlab( "Ratio de Defunciones (%)" )
+```
+
+Vemos que quizás Estados Unidos tiene una mayor concentración de regiones con ratios entre el 2 y el 5 % que china.
+
+### 11.- Dibuja con geom_line la evolución total del número de Recuperaciones por día.
+
+
+Vamos a agrupar primero por fecha, sumando los casos de recuperaciones y confirmaciones para todos los países. Ya que estamos vamos a hacer lo mismo con el número de muertes.
+
+```{r}
+# agrupamos de nuevo por día, sumando los confirmados, las muertes y los recuperados
+df_date <- df_MySQL %>% group_by(DATE) %>% 
+   summarise(NMEASURES = n(),
+             CONFIRMED = sum(CONFIRMED_SQL),
+             DEATHS = sum(DEATHS_SQL),
+             RECOVERED = sum(RECOVERED_SQL))
+
+# añadimos dos columnas con la información del ratio de mortalidad y ratio de curación
+df_date <- df_date %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  mutate(RECOVERED_RATIO = ifelse(CONFIRMED != 0, RECOVERED / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+head(df_date)
+
+```
+
+Para poder estaplecer comparaciones vamos a dividir el dataframe original en dos dataframes. Aquellas mediciones pertenecientes a `Mainland China`y las que no pertenecen a `Mainland China`. Y vamos realizar los mismos cálculos dentro de esas dos regiones.
+
+
+```{r}
+df_MySQL_ch <- df_MySQL %>% filter(COUNTRY_REGION == 'Mainland China')
+df_MySQL_noch <- df_MySQL %>% filter(COUNTRY_REGION != 'Mainland China')
+```
+
+```{r}
+# agrupamos de nuevo por DATE, sumando los confirmados, las muertes y los recuperados
+# para el dataframe de china
+df_date_ch <- df_MySQL_ch %>% group_by(DATE) %>% 
+   summarise(NMEASURES = n(),
+             CONFIRMED = sum(CONFIRMED_SQL),
+             DEATHS = sum(DEATHS_SQL),
+             RECOVERED = sum(RECOVERED_SQL))
+
+
+# añadimos dos columnas con la información del ratio de mortalidad y ratio de curación
+df_date_ch <- df_date_ch %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  mutate(RECOVERED_RATIO = ifelse(CONFIRMED != 0, RECOVERED / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+# agrupamos de nuevo por DATE, sumando los confirmados y las muertes para el dataframe
+# de no china
+df_date_noch <- df_MySQL_noch %>% group_by(DATE) %>% 
+   summarise(NMEASURES = n(),
+             CONFIRMED = sum(CONFIRMED_SQL),
+             DEATHS = sum(DEATHS_SQL),
+             RECOVERED = sum(RECOVERED_SQL))
+
+# añadimos dos columnas con la información del ratio de mortalidad y ratio de curación
+df_date_noch <- df_date_noch %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  mutate(RECOVERED_RATIO = ifelse(CONFIRMED != 0, RECOVERED / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+```
+
+Ahora dibujamos los tres dataframes en un line plot. Podemos ver cómo ha sido la evolución del total de curaciones a lo largo del tiempo para todos los paises, para China Continental y para el resto del mundo.
+
+
+```{r}
+ggplot( ) +
+  #evolucion curaciones para todos los de países
+  geom_line(aes( x = df_date$DATE, 
+                 y = df_date$RECOVERED,  
+                 colour="General"), 
+            size = 1) +
+  #evolucion curaciones para China
+  geom_line(aes( x = df_date_ch$DATE, 
+                 y = df_date_ch$RECOVERED, 
+                 colour="China"),
+            size = 0.7) +
+  #evolucion curaciones para resto de países
+  geom_line(aes( x = df_date_noch$DATE, 
+                 y = df_date_noch$RECOVERED, 
+                 colour="NoChina"), 
+            size = 0.7) +
+  #definición de color manual
+  scale_colour_manual(name="Regiones",
+                      values=c(General="royalblue", China="orangered", NoChina="green4")) +
+  tema_base() +
+  #título y etiquetas para los ejes
+  ggtitle( "Evolución Global de Curaciones" ) +
+  xlab( "Fecha" ) +
+  ylab( "Personas Curadas Totales" )
+
+```
+
+Se puede representar también con una escala logarítmica en el eje y. Estos días se está analizando mucho la evolución en este tipo de escalas por el tipo de crecimiento exponencial de las pandemias.
+
+```{r}
+  ggplot() +
+  #evolucion curaciones para todos los de países
+  geom_line(aes( x = df_date$DATE, 
+                 y = df_date$RECOVERED, 
+                 colour="General"), 
+            size = 1) +
+  #evolucion curaciones para China
+  geom_line(aes( x = df_date_ch$DATE, 
+                 y = df_date_ch$RECOVERED, 
+                 colour="China"),
+            size = 0.7) +
+  #evolucion curaciones para resto de países
+  geom_line(aes( x = df_date_noch$DATE, 
+                 y = df_date_noch$RECOVERED, 
+                 colour="NoChina"), 
+            size = 0.7) +
+  #escala logarítmica y ticks para eje y 
+  scale_y_log10(breaks = c(100, 1000, 3000, 10000, 30000, 100000, 300000)) +
+  #definición de color manual
+  scale_colour_manual(name="Regiones",
+                      values=c(General="royalblue", China="orangered", NoChina="green4")) +
+  
+  tema_base() +
+  #título y etiquetas para los ejes
+  ggtitle( "Evolución Global de Curaciones (Log)" ) +
+  xlab( "Fecha" ) +
+  ylab( "Personas Curadas Totales (Escala Log.)" )
+```
+Se puede ver lo que hemos estado viendo estos días. China ha conseguido estabilizar su situación, mientras el resto del mundo ha comenzado una escalada ascendente coincidiendo con la relantización de casos en China. En la gráfica con escala logarítmica se puede ver en rojo que China consique una evolución casi plana a día de hoy mientras que el resto de paises mantiene una evolución prácticamente recta desde el principio.
+
+Vamos a ver ahora cómo ha sido la evolución de la tasa de curaciones:
+
+```{r}
+ggplot() +
+  #evolucion recovered ratio para China
+  geom_line(aes( x = df_date_ch$DATE, 
+                 y = df_date_ch$RECOVERED_RATIO, 
+                 colour = "China"), 
+            size = 0.7) +
+  #evolucion recovered ratio para resto de países
+  geom_line(aes( x = df_date_noch$DATE, 
+                 y = df_date_noch$RECOVERED_RATIO, 
+                 colour = "NoChina"), 
+            size = 0.7) +
+  #añadimos una lína de tendencia para el 
+  #evolución general
+  geom_smooth(aes( x = df_date$DATE, 
+                   y = df_date$RECOVERED_RATIO),
+              color = "lightblue", fill = "lightblue",
+              method = "loess")+ 
+  #evolucion recovered ratio total
+  geom_line(aes( x = df_date$DATE, 
+                 y = df_date$RECOVERED_RATIO, 
+                 colour = "General"), 
+            size = 1) +
+  #definición de colores manueal
+  scale_colour_manual(name="Regiones", 
+                      values = c(General="royalblue", China="red", NoChina="green")) +
+  tema_base() +
+  
+  #título y etiquetas de los ejes
+  ggtitle( "Evolución Tasa de Curaciones" ) +
+  xlab( "Fecha" ) +
+  ylab( "Tasa de Curación (%)" )
+```
+La tasa de curaciones en China ha ido creciendo ya que cada vez ha ido abandonando más gente el  hospital y el númeor de detecciones ha dejado prácticamente de crecer.
+Para el resto del mundo se mantiene estable en torno a un 12%.
+El Grárico general presenta una evolución ascendente siguiendo los casos de China hasta que los casos en el resto del mundo han comenzado a ser muy numerosos arrastrando la curva hacia abajo de nuevo.
+
+Y por último vamos a ver cómo ha sido la evolución de la tasa de defunciones:
+
+```{r}
+ggplot() +
+  #evolucion deaths ratio para China
+  geom_line(aes( x = df_date_ch$DATE, 
+                 y = df_date_ch$DEATHS_RATIO, 
+                 colour = "China"), 
+            size = 0.7) +
+  #evolucion deaths ratio para resto de países
+  geom_line(aes( x = df_date_noch$DATE, 
+                 y = df_date_noch$DEATHS_RATIO, 
+                 colour = "NoChina"), 
+            size = 0.7) +
+  #añadimos una lína de tendencia para el 
+  #evolución general
+  geom_smooth(aes( x = df_date$DATE, 
+                   y = df_date$DEATHS_RATIO),
+              color = "lightblue", 
+              fill = "lightblue",
+              method = "lm")+ 
+  #evolucion deaths ratio total
+  geom_line(aes( x = df_date$DATE, 
+                 y = df_date$DEATHS_RATIO, 
+                 colour = "General"), 
+            size = 1) +
+  #definición de colores manual
+  scale_colour_manual(name="Regiones",
+                      values=c(General="royalblue", China="orangered", NoChina="green4")) +
+  
+  tema_base() +
+  #título y etiquetas de los ejes
+  ggtitle( "Evolución Tasa de Defunciones" ) +
+  xlab( "Fecha" ) +
+  ylab( "Tasa de Defunción (%)" )
+```
+
+
+Al igual que antes vemos que la tasa de defunciones se ha estabilizado en China y se ha quedado en torno al 4%(resultado final teniendo en cuenta dodos los casos, apenas hay nuevas detecciones y nuevas defunciones). 
+La tasa de defunciones general mantiene una pendiente ascendente y está cercana al 5% actualmente debido a la influencia del resto de paises.
+
+Vemos que aquí la tasa de defunciones es mucho más alta que las que veiamos en general al analizar la distribución por provincias, donde la mediana solía estar entre el 1 y el 2%. Eso es normal porque muchas provincias pueden tener ratios muy buenos como en el caso de China, pero por lo general eso ocurre porque el número de casos es muy bajo, por lo tanto no aportan muchos casos al global del país. La mayor parte de los casos suele venir de provincias donde el ratio de defunciones es más elevado que la mediana del ratio por provincias. 
+
+
+### 12.- Crea una función UDF que realice el cálculo del ratio de mortalidad. 
+
+Sobre el calculo de mortalidad realizado cree una cadena de texto que indique "Para el día: ##/##/#### el ratio es ##,###" (sustituyendo las # por sus valores correspondientes). La función debe admitir 3 parametros, la fecha , el numerador del ratio y el denominador del ratio.
+
+Le he añadido una variable para que nos devuelva el valor o la frase con el resultado en función de para qué la vayamos a usar. Si printado es igual a TRUE devolverá una cadena de texto del tipo "Para el día: ##/##/#### el ratio es ##,###", si es igual a FALSE devolverá solo el valor del resultado.
+
+```{r}
+#función para calcular el ratio entre dos factores
+calcula_ratio <- function(fecha, numerador, denominador, printado = FALSE)
+{
+  if (as.integer(denominador) != 0)
+  {
+    ratio = as.integer(numerador) / as.integer(denominador) * 100
+  }
+  else
+    {
+       ratio = 0
+    }
+  if (printado == TRUE) {
+      return(cat("Para el día:", fecha, "el ratio es:", round(ratio, digits=2), "%", '\n'))
+  }
+  else{
+      return(ratio)
+  }
+  
+}
+```
+
+Podemos aplicar la función anterior de la siguiente manera sobre 20 filas aleatorias del dataframe df_date:
+
+```{r}
+apply(df_date[sample(nrow(df_date), 20),],
+      1,
+      function(x) calcula_ratio(x['DATE'], x['DEATHS'], x['CONFIRMED'], printado = TRUE))
+```
+
+
+### 13.- Usa la función creada en el punto anterior sobre el conjunto de datos con la librería dplyr y la función summarise por cada fecha de observación.
+
+Usamos la misma función. En este caso ponemos printado=FALSE para que sólo devuelva el valor con el resultado.
+
+```{r}
+df_date <- df_MySQL %>% group_by(DATE) %>% 
+   summarise(NMEASURES = n(),
+             CONFIRMED = sum(CONFIRMED_SQL),
+             DEATHS = sum(DEATHS_SQL),
+             RECOVERED = sum(RECOVERED_SQL),
+             DEATH_RATIO = calcula_ratio(DATE, DEATHS, CONFIRMED, printado = FALSE))
+
+head(df_date)
+```
+
+### 14.-  Modifica la función anterior para que devuelva cual es el ratio de recuperación. ¿Qué cambios hay que realizar?
+
+```{r}
+df_date <-  df_MySQL %>% group_by(DATE) %>% 
+   summarise(NMEASURES = n(),
+             CONFIRMED = sum(CONFIRMED_SQL),
+             DEATHS = sum(DEATHS_SQL),
+             RECOVERED = sum(RECOVERED_SQL),
+             RECOVERED_RATIO = calcula_ratio(DATE, RECOVERED, CONFIRMED, printado = FALSE))
+
+head(df_date)
+```             
+
+Solamente hay que modificar las columnas que se entregan a la función que hemos creado.             
+             
+             
+### 15.- Representar en un mapa el número de casos confirmados, muertes y ratio de defunciones.
+
+
+Para realizar esta parte hemos elavorado un Script en python que lee el fichero de datos, obtiene una lista con todas las ubicaciones y envía consultas a la API de la página https://locationiq.com/ para obtener las coordenadas de esas localizaciones. Se ha escogido esta página porque permite 10000 consultas gratuitas diarias. 
+
+El resultado se guarda en un fichero csv `localizaciones.csv` dentro del directorio `data`. En principio no es necesario volver a ejecutarlo. Sólo haría falta si se añadiesen nuevas ubicaciones al fichero original de datos.
+
+
+**********************************************************************
+Ejecutar sólo en el caso de querer actualizar el fichero de coordenadas
+Se envía una consulta por segundo, puede tardar varios minutos.
+**********************************************************************
+
+use_python("C:/Users/jesus/Anaconda3/python.exe", required = T)
+system("python actualiza_coordenadas.py")
+
+
+
+Leemos el fichero generado por el script anterior.
+
+```{r}
+df_localizaciones <- fread(file = 'data/localizaciones.csv')
+colnames(df_localizaciones) <- c('PROVINCE_STATE',  
+                  'COUNTRY_REGION',
+                  'LOCALIZACION',
+                  'LAT',
+                  'LONG')
+
+head(df_localizaciones)
+
+```
+
+Generamos de nuevo un dataframe con la informacón más reciente de cada región. En este dataframe tendremos los casos confirmados, el número de muertes y el ratio de defunciones actual para cada una de las regiones registradas en el fichero de datos.
+
+
+```{r}
+
+
+df_provincia <- df_MySQL %>% 
+  # agrupamos por día, pais y provincia
+  group_by(DATE, COUNTRY_REGION, PROVINCE_STATE) %>%
+  # sumamos las cnatidades para cada día, pais y provincia
+  # esta suma serviría para agrupar si hubiese varías muestras el mismo día
+   summarise(
+          NSAMPLES = n(),
+          CONFIRMED = sum(CONFIRMED_SQL),
+          DEATHS = sum(DEATHS_SQL)) %>% 
+  #ordenamos por fecha y nos quedamos con el valor más reciente
+  #de cada provincia
+  group_by(COUNTRY_REGION, PROVINCE_STATE) %>% 
+   mutate(DATE = DATE,
+          CONFIRMED = CONFIRMED,
+          DEATHS = DEATHS) %>% 
+   arrange(desc(DATE)) %>% 
+   slice(1)
+
+# añadimos una columna con la información del ratio de mortalidad
+df_provincia <- df_provincia %>%
+  mutate(DEATHS_RATIO = ifelse(CONFIRMED != 0, DEATHS / CONFIRMED * 100, 0))  %>%
+  arrange(desc(DEATHS_RATIO))
+
+head(df_provincia,10)
+
+```
+
+
+Juntamos el dataframe anterior con el dataframe de coordenadas para obtener un dataframe con los valores de los pacientes y los valores de coordenadas geográficas.
+
+
+```{r}
+df_loc_provincia <- dplyr::left_join(df_provincia, df_localizaciones,
+                                      by=c('COUNTRY_REGION',
+                                           'PROVINCE_STATE'))
+
+na_count <- sapply(df_loc_provincia, function(x) sum(length(which(is.na(x)))))
+
+data.frame(na_count)
+
+df_loc_provincia <- df_loc_provincia %>% drop_na()
+
+```
+
+Representamos los datos anteriores en un mapa utilizando la librería `leaflet`.
+
+
+```{r}
+
+# esta función construye un estring para que las etiquetas se muestren con el formato correcto
+aplica_formato <- function(LOCALIZACION, DATOS, OPCION)
+   return(paste('<strong>', OPCION, '</strong>', '<br/>', '<strong>', LOCALIZACION , ': </strong>', DATOS))
+
+
+# definimos un grupo de mapas y un grupode valores a mostrar que podremos seleccionar en el mapa.
+groups <- c('CONFIRMED', 'DEATHS', 'DEATHS_RATIO')
+mapas <- c('Open Street Map','ESRI','Statment Toner','NASA - Noche2012','NASA')
+
+# construimos el mapa
+mapa <- leaflet() %>% 
+  # añadimos cinco posibles origeners para los Tiles
+  addProviderTiles(providers$OpenStreetMap, group ="Open Street Map") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group ="ESRI") %>%
+  addProviderTiles(providers$Stamen.Toner, group ="Statment Toner") %>%
+  addProviderTiles(providers$NASAGIBS.ViirsEarthAtNight2012, group ="NASA - Noche2012") %>%
+  addProviderTiles(providers$NASAGIBS.ModisTerraTrueColorCR, group ="NASA")%>%
+
+  # añadimos una capa de markers circulares para para los casos confirmados 
+  addCircleMarkers(data = df_loc_provincia, 
+                   lat = ~LAT, 
+                   lng = ~LONG,
+                   radius = ~sqrt(CONFIRMED/200),
+                   group = 'CONFIRMED', 
+                   label = ~lapply(aplica_formato(LOCALIZACION, CONFIRMED, 'CONFIRMED'), HTML), 
+                   color = 'green')  %>%
+  # añadimos una capa de markers circulares para para el número de muertes
+  addCircleMarkers(data = df_loc_provincia, 
+                   lat = ~LAT, 
+                   lng = ~LONG,
+                   radius = ~sqrt(DEATHS/100), 
+                   group = 'DEATHS',
+                   label = ~lapply(aplica_formato(LOCALIZACION, DEATHS, 'MUERTES'), HTML),
+                   color = 'red')  %>%
+  # añadimos una capa de markers circulares para para el ratio de defunciones
+  addCircleMarkers(data = df_loc_provincia, 
+                   lat = ~LAT, 
+                   lng = ~LONG,
+                   radius = ~sqrt(DEATHS_RATIO*50), 
+                   group = 'DEATHS_RATIO',
+                   label = ~lapply(aplica_formato(LOCALIZACION, DEATHS_RATIO, 'LOCALIZACION'), HTML),
+                   color = 'blue')
+
+# añadimos un control de capas para seleccionar entre las opciónes anteriores.
+mapa %>% addLayersControl(
+    baseGroups = mapas,
+    overlayGroups = groups,
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+
+``` 
+
+             
+             
